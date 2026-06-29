@@ -143,6 +143,7 @@ body::after{
   border:1px solid var(--line);
   border-radius:4px;padding:4px 9px;margin-bottom:14px;
 }
+.card .chip-row .theme{margin-bottom:0}
 .card.broadcast .theme{color:var(--current);border-color:rgba(62,107,255,.4)}
 .card.tank .theme{color:var(--tank);border-color:rgba(196,77,255,.4)}
 .card h3{font-family:var(--display);font-weight:600;font-size:1.18rem;letter-spacing:.04em;margin-bottom:8px}
@@ -170,6 +171,16 @@ body::after{
   font-family:var(--display);font-weight:600;letter-spacing:.2em;text-transform:uppercase;font-size:.8rem;
 }
 .new-mission:hover{color:var(--ion);transform:none}
+
+.band-filter{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:20px 0 4px}
+.band-filter .bf-label{font-family:var(--display);font-size:.62rem;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:var(--text-dim);margin-right:6px}
+.band-btn{font-family:var(--display);font-weight:600;letter-spacing:.14em;text-transform:uppercase;font-size:.72rem;
+  background:transparent;color:var(--text-dim);border:1px solid var(--line-dim);border-radius:99px;padding:0 1.1em;min-height:40px;
+  display:inline-flex;align-items:center;cursor:pointer;transition:color .15s,border-color .15s,background .15s;-webkit-tap-highlight-color:transparent}
+.band-btn:hover{color:var(--text);border-color:var(--line)}
+.band-btn.on{color:var(--ion);border-color:var(--ion);background:rgba(0,229,255,.1);box-shadow:0 0 16px rgba(0,229,255,.15)}
+.chip-row{display:flex;gap:8px;align-items:center;margin-bottom:14px;flex-wrap:wrap}
+.band-chip{font-family:var(--display);font-size:.6rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--flare);border:1px solid rgba(255,177,59,.4);border-radius:4px;padding:4px 8px;white-space:nowrap}
 
 /* ---------- RUNNER ---------- */
 .runner{flex:1;display:flex;flex-direction:column;min-height:100vh}
@@ -218,6 +229,22 @@ body::after{
   line-height:1.55;
   color:var(--text);
 }
+.challenge-link{
+  display:flex;align-items:center;gap:14px;flex-wrap:wrap;justify-content:center;
+  max-width:780px;
+  border:1px solid rgba(255,177,59,.42);
+  border-radius:12px;
+  background:linear-gradient(150deg, rgba(255,177,59,.12), rgba(255,177,59,.03));
+  padding:13px clamp(16px,3vw,22px);
+  text-align:left;
+}
+.challenge-link .cl-tag{
+  font-family:var(--display);font-size:clamp(.56rem,1.5vw,.66rem);font-weight:700;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--flare);white-space:nowrap;display:flex;align-items:center;gap:8px;flex:none;
+}
+.challenge-link .cl-tag .cl-dot{width:7px;height:7px;border-radius:50%;background:var(--flare);box-shadow:0 0 9px var(--flare)}
+.challenge-link .cl-text{font-size:clamp(.9rem,2.2vw,1.12rem);color:var(--text);line-height:1.45;font-weight:500;flex:1;min-width:200px}
+.pill.theme-pill{color:var(--flare);border-color:rgba(255,177,59,.42);background:rgba(255,177,59,.07)}
 .midrow{display:flex;align-items:center;justify-content:center;gap:clamp(14px,4vw,44px);flex-wrap:wrap}
 .ring-wrap{position:relative;width:clamp(240px,42vmin,420px);aspect-ratio:1;margin:clamp(4px,1vh,12px) 0}
 .ring-wrap svg{width:100%;height:100%;transform:rotate(-90deg);overflow:visible}
@@ -511,6 +538,7 @@ body::after{
   .hud{gap:8px;padding:12px 14px}
   .hud .left,.hud .right{gap:10px}
   .field input,.field textarea{font-size:1rem;padding:13px 14px}
+  .hud .theme-pill{display:none}
 }
 
 /* ---------- ACCOUNTS · ROSTER · RECORDS ---------- */
@@ -561,8 +589,8 @@ body::after{
    MISSION CONTROL  ·  ECMS  ·  PercyCodes  ·  2026-2027 SEASON
    Building theme: EMBRACE THE CHALLENGE.
    One self-contained page. Runs a 35-minute lesson, a morning
-   broadcast, or a CIRC Tank pitch competition. No grades, no
-   accounts, no network. Built to read from across the room.
+   broadcast, or a CIRC Tank pitch competition. Built to read from
+   across the room. Every phase names how it embraces the challenge.
    Voice rule: launch-ops vernacular kids know. No em dashes.
    ============================================================== */
 
@@ -683,86 +711,108 @@ const DIAG_BRIDGE = svgURI(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0
    Edit freely. Changes save to this device. */
 const DEFAULT_MISSIONS = [
   {
-    id:'challenge', type:'lesson', title:'THE CHALLENGE', theme:'EMBRACE IT',
+    id:'challenge', type:'lesson', title:'THE CHALLENGE', theme:'EMBRACE IT', band:'ALL',
     loadout:['Challenge cards face down at each table','Build materials sorted in trays','A fail log sheet per builder','Timer on the board','Showcase zone cleared'],
     phases:[
-      {name:'THE BRIEF', minutes:4, text:'Flip your challenge card. Read the goal and the limits out loud at your table. You will not get it right the first time, and that is exactly the point.'},
-      {name:'FIRST ATTEMPT', minutes:10, text:'Build version one. Do not aim for perfect, aim for something you can test. Get it standing, get it moving, get it done.'},
-      {name:'FAIL FORWARD', minutes:6, text:'Test it. Push it until it breaks. Find the weakest point and write it on your fail log. A failure you understand beats a guess that happened to work.'},
-      {name:'REBUILD', minutes:8, text:'Fix the ONE biggest weakness you found. Change that, leave the rest, test again. Iterate, do not restart.'},
-      {name:'SHOWCASE', minutes:5, text:'Show us what broke first and how you fixed it. The best story is not the build that never failed, it is the one that got better.'},
-      {name:'RESET + RECOVER', minutes:2, text:'Materials back in the trays. Fail logs in the bin with your name on top. Tables clear. Sit when your station is set.'}
+      {name:'THE BRIEF', minutes:4, text:'Flip your challenge card. Read the goal and the limits out loud at your table. You will not get it right the first time, and that is exactly the point.', challenge:'Saying the hard part out loud before you start is how you embrace it.'},
+      {name:'FIRST ATTEMPT', minutes:10, text:'Build version one. Do not aim for perfect, aim for something you can test. Get it standing, get it moving, get it done.', challenge:'A rough version one is brave. You cannot improve a build you never started.'},
+      {name:'FAIL FORWARD', minutes:6, text:'Test it. Push it until it breaks. Find the weakest point and write it on your fail log. A failure you understand beats a guess that happened to work.', challenge:'Hunting for the weak point on purpose IS the challenge. A failure you understand is progress.'},
+      {name:'REBUILD', minutes:8, text:'Fix the ONE biggest weakness you found. Change that, leave the rest, test again. Iterate, do not restart.', challenge:'Choosing to fix it and go again, instead of quitting, is the whole point.'},
+      {name:'SHOWCASE', minutes:5, text:'Show us what broke first and how you fixed it. The best story is not the build that never failed, it is the one that got better.', challenge:'Sharing what broke takes guts. The challenge is owning the struggle, not hiding it.'},
+      {name:'RESET + RECOVER', minutes:2, text:'Materials back in the trays. Fail logs in the bin with your name on top. Tables clear. Sit when your station is set.', challenge:'Leaving the space better than you found it is a challenge too. Finish strong.'}
     ]
   },
   {
-    id:'glider', type:'lesson', title:'GLIDER LAB', theme:'FLIGHT',
+    id:'cuptowers', type:'lesson', title:'CUP TOWERS', theme:'STACK + REBUILD', band:'K-2',
+    loadout:['A tub of plastic cups per table','A clear flat space at each spot','A builder spot marked for each kid','Camera ready for the tall towers'],
+    phases:[
+      {name:'WATCH + LEARN', minutes:4, text:'Eyes on me. Watch the cups stack up. Your job today: build the tallest cup tower you can. When it falls, that is okay. Builders always build again.', challenge:'A tower that falls is not a fail. Trying again is how we embrace the challenge.'},
+      {name:'BUILD IT', minutes:12, text:'Stack your cups as high as you can reach. Go slow near the top. If it tips over, take a breath and build it back up.', challenge:'Steady hands and a calm restart. Keep going when it gets wobbly.'},
+      {name:'KNOCK + REBUILD', minutes:8, text:'Knock your tower down on purpose. Now build it back even taller and even faster. You know how this time.', challenge:'You get better the second time. That is what practice does.'},
+      {name:'SHOW + COUNT', minutes:6, text:'Hands in your lap. We count how many cups tall each tower is. Big towers and small towers both get a clap.', challenge:'Cheer for every builder. Brave tries matter more than first place.'},
+      {name:'CLEAN UP', minutes:5, text:'Cups back in the tub. Sit criss-cross when your spot is clean and quiet.', challenge:'A clean room is a team win. Finish strong together.'}
+    ]
+  },
+  {
+    id:'ballramps', type:'lesson', title:'BALL RAMPS', theme:'PUSH + ROLL', band:'K-2',
+    loadout:['A ball or toy car for each pair','Books, boards, and blocks for ramps','A start line taped on the floor','Floor tiles or a tape measure to count distance'],
+    phases:[
+      {name:'WATCH + LEARN', minutes:4, text:'Watch the ball roll down the ramp. Today you build a ramp that makes your ball roll far. Taller ramps and smoother paths help.', challenge:'Making something roll farther takes tries. We learn by testing.'},
+      {name:'BUILD + ROLL', minutes:14, text:'Build your ramp with the blocks and books. Roll your ball. Change one thing, like making it taller, then roll again. Watch what helps.', challenge:'Change one thing and test it. One step at a time is how builders solve problems.'},
+      {name:'BIG ROLL', minutes:8, text:'Line up at the start line. Each pair gets two big rolls. We watch how far the ball goes and cheer it on.', challenge:'Your ramp meets the real test. Cheer the long rolls and the short ones.'},
+      {name:'SHOW + TELL', minutes:4, text:'Tell us one thing you changed that helped your ball roll farther. Short and proud.', challenge:'Saying what you learned out loud is part of being a builder.'},
+      {name:'CLEAN UP', minutes:5, text:'Blocks and balls back in the bin. Sit criss-cross when your space is clean.', challenge:'Reset the space for the next class. Finish strong.'}
+    ]
+  },
+  {
+    id:'glider', type:'lesson', title:'GLIDER LAB', theme:'FLIGHT', band:'3-4',
     loadout:['1 sheet of paper per builder','2 paper clips max each','Launch line taped to the floor','Measuring tape at the wall','Recovery bin for gliders'],
     phases:[
-      {name:'MISSION BRIEF', minutes:5, text:'Eyes up front. Watch the demo flight. Your mission: build a glider that flies far and flies straight. Materials: 1 sheet of paper and 2 paper clips, no more.'},
-      {name:'BUILD WINDOW', minutes:20, text:'Build at your table. Test toward the wall only. After every flight, change ONE thing and fly it again. One change at a time is how you learn what works.', img:DIAG_GLIDER},
-      {name:'FLIGHT TRIALS', minutes:8, text:'Line up at the launch line. Two official throws each. Spotters mark the landing and call out the distance. Cheer for far and for straight.'},
-      {name:'RESET + RECOVER', minutes:2, text:'Gliders in the bin with your name on the wing. Tables clear. Chairs in. Sit when your station is done.'}
+      {name:'MISSION BRIEF', minutes:5, text:'Eyes up front. Watch the demo flight. Your mission: build a glider that flies far and flies straight. Materials: 1 sheet of paper and 2 paper clips, no more.', challenge:'Tight limits are the challenge. One sheet and two clips forces real problem solving.'},
+      {name:'BUILD WINDOW', minutes:20, text:'Build at your table. Test toward the wall only. After every flight, change ONE thing and fly it again. One change at a time is how you learn what works.', img:DIAG_GLIDER, challenge:'Change one thing, fly, repeat. Iterating instead of guessing is how you embrace it.'},
+      {name:'FLIGHT TRIALS', minutes:8, text:'Line up at the launch line. Two official throws each. Spotters mark the landing and call out the distance. Cheer for far and for straight.', challenge:'Your design meets the real world. Cheer the long flights and learn from the nose dives.'},
+      {name:'RESET + RECOVER', minutes:2, text:'Gliders in the bin with your name on the wing. Tables clear. Chairs in. Sit when your station is done.', challenge:'A clean recovery is part of the mission. Finish what you started.'}
     ]
   },
   {
-    id:'tower', type:'lesson', title:'TOWER CHALLENGE', theme:'STRUCTURES',
+    id:'tower', type:'lesson', title:'TOWER CHALLENGE', theme:'STRUCTURES', band:'5-6',
     loadout:['20 spaghetti sticks per team','1 meter of tape per team','1 marshmallow per team','Scissors at each table','Measuring stick ready'],
     phases:[
-      {name:'MISSION BRIEF', minutes:5, text:'Your mission: build the tallest tower that holds a marshmallow on top for 10 seconds. Materials: 20 spaghetti sticks, 1 meter of tape, 1 marshmallow.'},
-      {name:'BUILD WINDOW', minutes:20, text:'Plan fast, build faster. Test as you go. The marshmallow goes on top the whole time, not on at the end. Towers must stand on their own.', img:DIAG_TOWER},
-      {name:'MEASURE + SHOW', minutes:8, text:'Hands off your towers. We measure together. Tallest standing tower wins. Be ready to say the one thing that made yours work.'},
-      {name:'RESET + RECOVER', minutes:2, text:'Spaghetti in the cup. Tape balls in the trash. Marshmallows stay where they are. Tables clear. Sit when done.'}
+      {name:'MISSION BRIEF', minutes:5, text:'Your mission: build the tallest tower that holds a marshmallow on top for 10 seconds. Materials: 20 spaghetti sticks, 1 meter of tape, 1 marshmallow.', challenge:'Tall and steady fight each other. Living with that tension is the challenge.'},
+      {name:'BUILD WINDOW', minutes:20, text:'Plan fast, build faster. Test as you go. The marshmallow goes on top the whole time, not on at the end. Towers must stand on their own.', img:DIAG_TOWER, challenge:'Test as you build. Every wobble is data, not defeat.'},
+      {name:'MEASURE + SHOW', minutes:8, text:'Hands off your towers. We measure together. Tallest standing tower wins. Be ready to say the one thing that made yours work.', challenge:'Win or fall, you can name what made it work. That is the growth.'},
+      {name:'RESET + RECOVER', minutes:2, text:'Spaghetti in the cup. Tape balls in the trash. Marshmallows stay where they are. Tables clear. Sit when done.', challenge:'Pack down fast and fair. Reset the space for the next crew.'}
     ]
   },
   {
-    id:'bridge', type:'lesson', title:'BRIDGE OUT', theme:'SPAN + LOAD',
+    id:'bridge', type:'lesson', title:'BRIDGE OUT', theme:'SPAN + LOAD', band:'5-6',
     loadout:['20 index cards per team','30 cm of tape per team','1 paper cup for the load','A handful of washers or coins','Two desks set one hand-span apart'],
     phases:[
-      {name:'MISSION BRIEF', minutes:5, text:'Your mission: span the gap between two desks and hold the most weight in the middle. Materials: 20 index cards and 30 cm of tape. No taping to the desks.'},
-      {name:'BUILD WINDOW', minutes:18, text:'Fold cards to make them stiff. Flat paper bends, folded paper holds. Build your span, then test with a few washers before the real load.', img:DIAG_BRIDGE},
-      {name:'LOAD TEST', minutes:8, text:'Bridges across the gap. We add weight one washer at a time until it bends or drops. Count out loud as a class. Last span standing takes it.'},
-      {name:'RESET + RECOVER', minutes:4, text:'Washers back in the cup. Cards in the recycle bin. Tape off the desks. Tables clear. Sit when your station is done.'}
+      {name:'MISSION BRIEF', minutes:5, text:'Your mission: span the gap between two desks and hold the most weight in the middle. Materials: 20 index cards and 30 cm of tape. No taping to the desks.', challenge:'Holding weight with flimsy paper sounds impossible. Taking that on is the challenge.'},
+      {name:'BUILD WINDOW', minutes:18, text:'Fold cards to make them stiff. Flat paper bends, folded paper holds. Build your span, then test with a few washers before the real load.', img:DIAG_BRIDGE, challenge:'Fold weak paper into something strong. Turning a limit into a strength is the lesson.'},
+      {name:'LOAD TEST', minutes:8, text:'Bridges across the gap. We add weight one washer at a time until it bends or drops. Count out loud as a class. Last span standing takes it.', challenge:'Watch it bend and hold. Pushing to the breaking point is how you learn the limit.'},
+      {name:'RESET + RECOVER', minutes:4, text:'Washers back in the cup. Cards in the recycle bin. Tape off the desks. Tables clear. Sit when your station is done.', challenge:'Recover the space. A clean finish is a strong finish.'}
     ]
   },
   {
-    id:'chain', type:'lesson', title:'CHAIN REACTION', theme:'CAUSE + EFFECT',
+    id:'chain', type:'lesson', title:'CHAIN REACTION', theme:'CAUSE + EFFECT', band:'3-4',
     loadout:['Books, blocks, and dominoes per team','1 marble or small ball each','Tape and string available','A start line and a finish cup','Clear floor or long table per team'],
     phases:[
-      {name:'MISSION BRIEF', minutes:5, text:'Your mission: build a chain reaction that starts with one push and ends by dropping the marble in the cup. At least three steps, and no hands once it starts.'},
-      {name:'BUILD WINDOW', minutes:16, text:'Build it in small sections and test each one before you connect them. If a section fails twice, fix that part before you add more. Save the full run for the end.'},
-      {name:'RUN THE CHAIN', minutes:10, text:'One push to start, then hands off. If it stalls, note where it broke and reset that section. You get three official runs. Cheer for every cup that fills.'},
-      {name:'RESET + RECOVER', minutes:4, text:'Marbles in the bin. Blocks and books stacked. Tape balls in the trash. Tables and floor clear. Sit when your station is set.'}
+      {name:'MISSION BRIEF', minutes:5, text:'Your mission: build a chain reaction that starts with one push and ends by dropping the marble in the cup. At least three steps, and no hands once it starts.', challenge:'One push, many steps, no hands. Long odds are exactly the challenge.'},
+      {name:'BUILD WINDOW', minutes:16, text:'Build it in small sections and test each one before you connect them. If a section fails twice, fix that part before you add more. Save the full run for the end.', challenge:'Build and test in small sections. Fixing one piece at a time beats starting over.'},
+      {name:'RUN THE CHAIN', minutes:10, text:'One push to start, then hands off. If it stalls, note where it broke and reset that section. You get three official runs. Cheer for every cup that fills.', challenge:'It will stall. Reset that section and run it again. Persistence is the point.'},
+      {name:'RESET + RECOVER', minutes:4, text:'Marbles in the bin. Blocks and books stacked. Tape balls in the trash. Tables and floor clear. Sit when your station is set.', challenge:'Break it down and reset. Leave the floor ready for the next team.'}
     ]
   },
   {
-    id:'pitchpolish', type:'lesson', title:'PITCH POLISH', theme:'TANK PREP',
+    id:'pitchpolish', type:'lesson', title:'PITCH POLISH', theme:'TANK PREP', band:'5-6',
     loadout:['Team prototypes on the table','A pitch card per team','A 60 second timer or phone','Feedback slips for listeners','Showcase zone cleared'],
     phases:[
-      {name:'THE BRIEF', minutes:4, text:'Today we sharpen your CIRC Tank pitch. The goal: hook us in one sentence, show the thing, and say who it helps. Sixty seconds, no slides.'},
-      {name:'DRAFT THE HOOK', minutes:8, text:'Write your one sentence hook. Make it about the person you help, not the parts you used. Try three versions and circle the one that sounds best out loud.'},
-      {name:'PRACTICE ROUND', minutes:10, text:'Pitch to the team next to you. Listeners fill one feedback slip: one thing that landed, one thing to fix. Swap and repeat so everyone pitches once.'},
-      {name:'FEEDBACK + FIX', minutes:10, text:'Take the feedback and change one thing that makes your pitch clearer. Practice the new version twice. Confident and clear beats long and fancy.'},
-      {name:'RESET + RECOVER', minutes:3, text:'Pitch cards with your team name on top. Feedback slips in the bin. Prototypes back in the tote. Tables clear. Sit when your team is set.'}
+      {name:'THE BRIEF', minutes:4, text:'Today we sharpen your CIRC Tank pitch. The goal: hook us in one sentence, show the thing, and say who it helps. Sixty seconds, no slides.', challenge:'Saying it simply is harder than saying it long. That is the challenge.'},
+      {name:'DRAFT THE HOOK', minutes:8, text:'Write your one sentence hook. Make it about the person you help, not the parts you used. Try three versions and circle the one that sounds best out loud.', challenge:'Cutting your idea down to one sentence is real work. Embrace the edit.'},
+      {name:'PRACTICE ROUND', minutes:10, text:'Pitch to the team next to you. Listeners fill one feedback slip: one thing that landed, one thing to fix. Swap and repeat so everyone pitches once.', challenge:'Pitching to a real listener is nerve-racking. Doing it anyway is the growth.'},
+      {name:'FEEDBACK + FIX', minutes:10, text:'Take the feedback and change one thing that makes your pitch clearer. Practice the new version twice. Confident and clear beats long and fancy.', challenge:'Take the note and change one thing. Humility plus grit is the challenge.'},
+      {name:'RESET + RECOVER', minutes:3, text:'Pitch cards with your team name on top. Feedback slips in the bin. Prototypes back in the tote. Tables clear. Sit when your team is set.', challenge:'Pack up sharp and walk away ready for the Tank.'}
     ]
   },
   {
-    id:'broadcast', type:'broadcast', title:'MORNING BROADCAST', theme:'ON AIR',
+    id:'broadcast', type:'broadcast', title:'MORNING BROADCAST', theme:'ON AIR', band:'ALL',
     loadout:['Camera on and framed','Mics tested','Lunch menu card on the desk','Birthday list printed','Shout-out slips collected','Anchor scripts in place'],
     phases:[
-      {name:'STANDBY', minutes:1, role:'DIRECTOR', text:'Crew in positions. Mic check. Anchors seated. Director counts down from 10.'},
-      {name:'WELCOME + PLEDGE', minutes:1.5, role:'ANCHORS', text:'Good morning Ehrman Crest! Today is ___. Please stand for the Pledge of Allegiance.'},
-      {name:'LUNCH MENU', minutes:0.75, role:'ANCHOR 2', text:'Read today\'s lunch from the menu card. Slow and clear, like they cannot see it.'},
-      {name:'BIRTHDAYS', minutes:0.75, role:'ANCHOR 1', text:'Happy birthday to: read today\'s names. Big energy on every single one.'},
-      {name:'SHOUT-OUTS', minutes:1, role:'ANCHORS', text:'Crest shout-outs: read the teacher submissions. Smile, you are on camera.'},
-      {name:'SIGN-OFF', minutes:0.5, role:'ALL', text:'That is your morning broadcast. Make it a great day, Ehrman Crest!'}
+      {name:'STANDBY', minutes:1, role:'DIRECTOR', text:'Crew in positions. Mic check. Anchors seated. Director counts down from 10.', challenge:'Live means no do-over. Settling your nerves before the count is the challenge.'},
+      {name:'WELCOME + PLEDGE', minutes:1.5, role:'ANCHORS', text:'Good morning Ehrman Crest! Today is ___. Please stand for the Pledge of Allegiance.', challenge:'Speak to the whole school with confidence. Owning the mic is the growth.'},
+      {name:'LUNCH MENU', minutes:0.75, role:'ANCHOR 2', text:'Read today\'s lunch from the menu card. Slow and clear, like they cannot see it.', challenge:'Clear and slow under pressure. Small job, real focus.'},
+      {name:'BIRTHDAYS', minutes:0.75, role:'ANCHOR 1', text:'Happy birthday to: read today\'s names. Big energy on every single one.', challenge:'Bring the energy even on take one. That is showing up.'},
+      {name:'SHOUT-OUTS', minutes:1, role:'ANCHORS', text:'Crest shout-outs: read the teacher submissions. Smile, you are on camera.', challenge:'Read someone else\'s words with heart. Being generous on camera is brave.'},
+      {name:'SIGN-OFF', minutes:0.5, role:'ALL', text:'That is your morning broadcast. Make it a great day, Ehrman Crest!', challenge:'Land the ending clean. Finishing strong on live TV is the challenge.'}
     ]
   },
   {
-    id:'tank', type:'tank', title:'CIRC TANK', theme:'PITCH',
+    id:'tank', type:'tank', title:'CIRC TANK', theme:'PITCH', band:'5-6',
     loadout:['Pitch order locked','Teams checked in with emblems','Prototypes on the props table','Judges have feedback sheets','Audience seated, demo zone clear'],
     phases:[
-      {name:'PITCH', minutes:3, text:'You have the floor. Hook us in one sentence, demo your innovation, and tell us who it helps.'},
-      {name:'Q+A', minutes:2, text:'Judges ask, you answer. Short and honest beats long and fancy. If you do not know, say how you would find out.'}
+      {name:'PITCH', minutes:3, text:'You have the floor. Hook us in one sentence, demo your innovation, and tell us who it helps.', challenge:'Putting your work in front of judges is the biggest challenge of all. Own the floor.'},
+      {name:'Q+A', minutes:2, text:'Judges ask, you answer. Short and honest beats long and fancy. If you do not know, say how you would find out.', challenge:'Answering on the spot is hard. Honest beats fancy, and "I would find out" is a strong answer.'}
     ]
   }
 ];
@@ -771,7 +821,7 @@ const DEFAULT_MISSIONS = [
 const IDENT_KEY = 'missionControl.identity.v1';
 const DEFAULT_IDENTITY = {
   school:'EHRMAN CREST',
-  group:'CIRC · GRADES 5-6',
+  group:'CIRC · GRADES K-6',
   teacher:'MR. MACEK',
   room:'',
   seasonLabel:'2026 / 2027 SEASON',
@@ -820,6 +870,7 @@ function resetMissionsToDefaults(){
 }
 let missions = loadMissions();
 let teams = [];
+let homeBand = 'ALL';
 
 /* ---------- audio ---------- */
 let actx = null, soundOn = true;
@@ -1066,9 +1117,10 @@ function identityLine(){
 }
 
 function renderHome(){
-  const lessons = missions.filter(m=>m.type==='lesson');
-  const casts = missions.filter(m=>m.type==='broadcast');
-  const tanks = missions.filter(m=>m.type==='tank');
+  const bands=['ALL','K-2','3-4','5-6'];
+  const lessons = missions.filter(m=>m.type==='lesson' && bandMatch(m));
+  const casts = missions.filter(m=>m.type==='broadcast' && bandMatch(m));
+  const tanks = missions.filter(m=>m.type==='tank' && bandMatch(m));
   const themeHTML = esc(identity.seasonTheme).replace(/(CHALLENGE)/i, '<span class="hot">$1</span>');
   app.innerHTML = `
   <div class="home">
@@ -1095,23 +1147,30 @@ function renderHome(){
       <div class="s-line">${esc(identity.seasonCreed)}</div>
     </div>
 
+    <div class="band-filter">
+      <span class="bf-label">GRADE BAND</span>
+      ${bands.map(b=>`<button class="band-btn ${homeBand===b?'on':''}" onclick="setBand('${b}')">${b==='ALL'?'ALL GRADES':'GRADES '+b}</button>`).join('')}
+    </div>
+
     <div class="section-label"><span class="eyebrow">LESSON OPS</span></div>
     <div class="mission-grid">
       ${lessons.map(cardHTML).join('')}
       <button class="card new-mission" onclick="openEditor(null)">+ NEW MISSION</button>
     </div>
 
-    <div class="section-label"><span class="eyebrow">MORNING BROADCAST</span></div>
-    <div class="mission-grid">
-      ${casts.map(cardHTML).join('')}
-    </div>
+    ${casts.length?`<div class="section-label"><span class="eyebrow">MORNING BROADCAST</span></div>
+    <div class="mission-grid">${casts.map(cardHTML).join('')}</div>`:''}
 
-    <div class="section-label"><span class="eyebrow">CIRC TANK</span></div>
-    <div class="mission-grid">
-      ${tanks.map(cardHTML).join('')}
-    </div>
+    ${tanks.length?`<div class="section-label"><span class="eyebrow">CIRC TANK</span></div>
+    <div class="mission-grid">${tanks.map(cardHTML).join('')}</div>`:''}
   </div>`;
 }
+function bandMatch(m){
+  if(homeBand==='ALL') return true;
+  const b=m.band||'ALL';
+  return b===homeBand || b==='ALL';
+}
+function setBand(b){ homeBand=b; renderHome(); }
 
 function cardHTML(m){
   const total = m.phases.reduce((a,p)=>a+p.minutes,0);
@@ -1129,7 +1188,7 @@ function cardHTML(m){
   <div class="card ${cls}" tabindex="0" role="button"
        onclick="startMission('${m.id}')" onkeydown="if(event.key==='Enter')startMission('${m.id}')">
     <button class="edit-link" onclick="event.stopPropagation();openEditor('${m.id}')">EDIT</button>
-    <span class="theme">${esc(m.theme)}</span>
+    <div class="chip-row"><span class="theme">${esc(m.theme)}</span><span class="band-chip">${esc(m.band||'ALL')}</span></div>
     <h3>${esc(m.title)}</h3>
     <div class="meta"><span><b>${m.phases.length}</b> ${m.type==='tank'?'phases / team':'phases'}</span><span><b>${fmtMin(total)}</b> min${m.type==='tank'?' / team':''}</span></div>
     ${footer}
@@ -1197,6 +1256,7 @@ function renderRunner(){
         </div>
       </div>
       <div class="instruction">${esc(p.text)}</div>
+      ${p.challenge ? `<div class="challenge-link"><span class="cl-tag"><span class="cl-dot"></span>${esc(identity.seasonTheme)}</span><span class="cl-text">${esc(p.challenge)}</span></div>` : ''}
       ${diagram}
       <div class="next-up">${next ? `NEXT: <b>${esc(next.name)}</b> · ${fmtMin(next.minutes)} min` : (isCast?'FINAL SEGMENT':(isTank?'LAST PHASE FOR THIS TEAM':'FINAL PHASE'))}</div>
       <div class="phase-track">
@@ -1256,6 +1316,7 @@ function hudHTML(){
     <div class="left">
       <button class="btn ghost exit" onclick="exitRunner()">&larr; HOME</button>
       <span class="mission-name">${esc(m.title)}</span>
+      <span class="pill theme-pill">${esc(identity.seasonTheme)}</span>
     </div>
     <div class="right">
       ${statusPill}
@@ -1384,7 +1445,7 @@ function launchFromLoadout(){ startRunner(lo.id); }
 function openEditor(id){
   editing = id
     ? JSON.parse(JSON.stringify(missions.find(m=>m.id===id)))
-    : { id:'m'+Date.now(), type:'lesson', title:'', theme:'', isNew:true,
+    : { id:'m'+Date.now(), type:'lesson', title:'', theme:'', band:'ALL', isNew:true,
         loadout:[],
         phases:[
           {name:'MISSION BRIEF', minutes:5, text:''},
@@ -1406,6 +1467,11 @@ function renderEditor(){
         <button class="btn ${editing.type==='lesson'?'on':''}" onclick="setType('lesson')">LESSON OPS</button>
         <button class="btn ${editing.type==='broadcast'?'on':''}" onclick="setType('broadcast')">BROADCAST</button>
         <button class="btn ${editing.type==='tank'?'on':''}" onclick="setType('tank')">CIRC TANK</button>
+      </div>
+    </div>
+    <div class="field"><label>GRADE BAND</label>
+      <div class="typeSel">
+        ${['ALL','K-2','3-4','5-6'].map(b=>`<button class="btn ${(editing.band||'ALL')===b?'on':''}" onclick="setBandEdit('${b}')">${b==='ALL'?'ALL GRADES':'GRADES '+b}</button>`).join('')}
       </div>
     </div>
     <div class="field"><label>MISSION TITLE</label>
@@ -1446,6 +1512,8 @@ function phaseRowHTML(p,i,isCast){
     </div>
     <div class="field"><label>WHAT THE CREW SEES</label>
       <textarea class="pText" placeholder="Big, simple, kid-readable instructions.">${esc(p.text||'')}</textarea></div>
+    <div class="field" style="margin-bottom:0"><label style="color:var(--flare)">CHALLENGE CONNECTION &middot; GOLD CALLOUT</label>
+      <textarea class="pChallenge" placeholder="How does this phase embrace the challenge? Shown on screen the whole phase.">${esc(p.challenge||'')}</textarea></div>
   </div>`;
 }
 function loEditRowHTML(t,i){
@@ -1455,6 +1523,7 @@ function loEditRowHTML(t,i){
   </div>`;
 }
 function setType(t){ harvestEditor(); editing.type = t; renderEditor(); }
+function setBandEdit(b){ harvestEditor(); editing.band = b; renderEditor(); }
 function harvestEditor(){
   const title = document.getElementById('eTitle');
   if(title) editing.title = title.value.trim();
@@ -1470,6 +1539,8 @@ function harvestEditor(){
       };
       const role = r.querySelector('.pRole');
       if(role && role.value.trim()) phase.role = role.value.trim();
+      const ch = r.querySelector('.pChallenge');
+      if(ch && ch.value.trim()) phase.challenge = ch.value.trim();
       const old = editing.phases[parseInt(r.dataset.i,10)];
       if(old && old.img) phase.img = old.img;
       return phase;
@@ -1486,6 +1557,7 @@ function saveMission(){
   harvestEditor();
   editing.title = editing.title || 'UNTITLED MISSION';
   editing.theme = editing.theme || 'MISSION';
+  editing.band = editing.band || 'ALL';
   delete editing.isNew;
   const idx = missions.findIndex(m=>m.id===editing.id);
   if(idx>=0) missions[idx]=editing; else missions.push(editing);
