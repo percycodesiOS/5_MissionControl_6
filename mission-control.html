@@ -541,6 +541,13 @@ body::after{
   .hud .theme-pill{display:none}
 }
 
+/* ---------- K-2 LITTLES MODE (bigger, calmer, icon-scale text) ---------- */
+.runner.littles .instruction{font-size:clamp(1.25rem,3.8vw,2.05rem);line-height:1.5;max-width:820px;font-weight:600}
+.runner.littles .phase-name{font-size:clamp(1.9rem,6.5vw,3.6rem)}
+.runner.littles .timer{font-size:clamp(3.8rem,13vmin,7.2rem)}
+.runner.littles .next-up{font-size:clamp(.9rem,2.4vw,1.1rem)}
+.runner.littles .challenge-link .cl-text{font-size:clamp(1rem,2.5vw,1.3rem)}
+
 /* ---------- ACCOUNTS · ROSTER · RECORDS ---------- */
 .acct-bar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:flex-end}
 .you-badge{display:inline-flex;align-items:center;gap:8px;font-family:var(--display);font-size:.62rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--grow);border:1px solid rgba(59,255,142,.4);border-radius:99px;padding:8px 13px}
@@ -711,7 +718,480 @@ const DIAG_BRIDGE = svgURI(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0
    Edit freely. Changes save to this device. */
 const DEFAULT_MISSIONS = [
   {
-    id:'challenge', type:'lesson', title:'THE CHALLENGE', theme:'EMBRACE IT', band:'ALL',
+    id:'m56coaster', type:'lesson', title:'COASTER TRACKS', theme:'PUSH + ROLL', band:'5-6', arc:3,
+    loadout:['Foam pipe insulation halves or card strips per team','Tape and scissors per table','One marble per team','A loop and a landing cup as the goal'],
+    phases:[
+      {name:'MISSION BRIEF', minutes:5, text:'Your mission: build a coaster track where the marble survives one full loop and still lands in the cup. Start height is your energy budget. Spend it wisely.', challenge:'Too little height stalls the loop, too much launches the marble into orbit. Tuning is the job.'},
+      {name:'BUILD WINDOW', minutes:18, text:'Build the track section by section: drop, loop, runout. Test each section before connecting. Adjust start height and loop size until the marble makes it around.', challenge:'A stalled loop is not a fail, it is a measurement. Raise the start and read the result.'},
+      {name:'FULL RUNS', minutes:8, text:'Three official runs, full track, marble must complete the loop and land in the cup. Loop plus landing is the only score that counts.', challenge:'Consistency is the real test. One lucky run proves nothing, three clean runs prove design.'},
+      {name:'RESET + RECOVER', minutes:4, text:'Track apart, insulation stacked by length, marbles counted in, tape in the trash. Sit when your zone is clear.', challenge:'Strike the set like a pro crew. Clean, counted, fast.'}
+    ]
+  },
+  {
+    id:'m56hoop', type:'lesson', title:'HOOP GLIDERS', theme:'FLIGHT', band:'5-6', arc:4,
+    loadout:['Straws, card strips, and tape per builder','A launch line and a distance tape','A target ring at mid range','Recovery bin for gliders'],
+    phases:[
+      {name:'MISSION BRIEF', minutes:5, text:'Your mission: build a hoop glider, a straw with a small hoop up front and a big hoop in back, and beat a normal paper plane for distance or accuracy. Weird designs fly.', challenge:'It looks like it should not fly at all. Testing a weird idea honestly is the challenge.'},
+      {name:'BUILD WINDOW', minutes:18, text:'Build and test toward the wall. Tune hoop sizes, spacing, and nose weight. Then decide your event: distance or target. Tune for YOUR event.', challenge:'Distance and accuracy want different builds. Committing to one goal is a design decision.'},
+      {name:'FLIGHT TRIALS', minutes:8, text:'Two official throws in your chosen event. Distance flyers measure at the tape, target flyers score the ring. Spotters call every landing.', challenge:'You chose your event. Now your build answers for it in front of everyone.'},
+      {name:'RESET + RECOVER', minutes:4, text:'Gliders in the bin with names on, straws and strips sorted, launch lane clear. Sit when done.', challenge:'Recover the flight line completely. Next squadron launches in minutes.'}
+    ]
+  },
+  {
+    id:'m56rube', type:'lesson', title:'RUBE MACHINE', theme:'CAUSE + EFFECT', band:'5-6', arc:6,
+    loadout:['Dominoes, marbles, tubes, string, and books per team','One end task: ring a bell or drop a flag','Tape and scissors per table','A machine zone marked per team'],
+    phases:[
+      {name:'MISSION BRIEF', minutes:5, text:'Your mission: build a five-step chain machine that ends by ringing the bell. Every step must be a different action: roll, tip, pull, drop, slide. One push starts it all.', challenge:'Five different actions chained together. Every link you add doubles the ways it can stall.'},
+      {name:'BUILD WINDOW', minutes:18, text:'Build step by step and test each link twice before connecting the next. Mark your reset points so a failed run restarts fast.', challenge:'Test the links, not just the chain. Reliability is built one step at a time.'},
+      {name:'MACHINE RUNS', minutes:8, text:'Three official runs. Score one point per step that fires plus two for the bell. Stalls get one quick fix between runs. Count every step out loud.', challenge:'When it stalls at step three, fix step three. Precision beats panic.'},
+      {name:'RESET + RECOVER', minutes:4, text:'Machines down, parts sorted by type, bell back on the shelf, zones clear. Sit when your zone is empty.', challenge:'A five-step machine means a five-part cleanup. Sort it all the way.'}
+    ]
+  },
+  {
+    id:'m56hull', type:'lesson', title:'HULL DESIGN', theme:'FLOAT THE LOAD', band:'5-6', arc:7,
+    loadout:['One foil sheet per team, same size for all','Tubs of water with towels underneath','Washers or pennies in counted cups','A results chart on the board: shape vs max load'],
+    phases:[
+      {name:'MISSION BRIEF', minutes:5, text:'Your mission: same foil, same water, different hulls. Design the hull shape that holds the most weight. Before you build, predict your max and write it down.', challenge:'Predicting first takes nerve. Your guess against reality, in public, on the board.'},
+      {name:'BUILD WINDOW', minutes:16, text:'Shape your hull: barge, canoe, catamaran, your call. Test-float early, watch the waterline, reshape where it dips. Log your test loads as you go.', challenge:'The waterline tells the truth the whole time. Learn to read it before the big test.'},
+      {name:'MAX LOAD TEST', minutes:10, text:'Official loading, one washer at a time, class counts together. When it ships water, that number goes on the board next to your prediction and your hull shape.', challenge:'Your prediction meets the tub. Being wrong by a lot and knowing WHY is a great result.'},
+      {name:'RESET + RECOVER', minutes:4, text:'Foil recycled, washers counted and dried, tubs wiped, chart photographed for the record. Sit when dry and clear.', challenge:'Water plus metal means a careful recovery. Dry it, count it, done.'}
+    ]
+  },
+  {
+    id:'m56lander', type:'lesson', title:'CRASH LANDER', theme:'SOFT + SLOW', band:'5-6', arc:8,
+    loadout:['One egg or two crackers per team as crew','Straws, paper, string, cotton, and limited tape','A high drop point and a marked landing zone','Floor covering for the splat zone'],
+    phases:[
+      {name:'MISSION BRIEF', minutes:5, text:'Your mission: your crew capsule drops from full height and the crew must survive. Budget: the materials in front of you, nothing else. NASA does this with billion dollar rovers.', challenge:'Fragile cargo, hard floor, one drop. Every real engineering constraint at once.'},
+      {name:'BUILD WINDOW', minutes:18, text:'Design for slow fall, soft landing, or both. Crumple zones, parachutes, cages. Small drops from chair height to test, save the crew for the real one.', challenge:'Your test drops are your only rehearsal. Use them or gamble the crew.'},
+      {name:'THE DROP', minutes:8, text:'One official drop per team, full height, into the zone. Open the capsule as a class. Intact crew earns the cheer, cracked crew earns the autopsy.', challenge:'One drop, no retry. This is why engineers test before launch day.'},
+      {name:'RESET + RECOVER', minutes:4, text:'Capsules opened and sorted, floor cleaned, survivors honored, casualties binned. Sit when your zone is clear.', challenge:'Debrief and clean like a crash team: honest, thorough, fast.'}
+    ]
+  },
+  {
+    id:'m56sail', type:'lesson', title:'SAIL RACERS', theme:'CATCH THE WIND', band:'5-6', arc:9,
+    loadout:['Race car bases or lids with straws and wheels','Paper, card, and tape for sails','A fan and a straight race lane taped','A finish line and distance markers'],
+    phases:[
+      {name:'MISSION BRIEF', minutes:5, text:'Your mission: engineer a wind racer for the straightest, farthest run down the lane. Sail area, sail angle, weight, and wheel drag all matter. You cannot touch it after the wind starts.', challenge:'Four variables, one run at a time. Isolating what matters is the engineering.'},
+      {name:'BUILD WINDOW', minutes:18, text:'Build, run, tune, repeat. Change one variable per run and log what happened: distance and drift. Two minutes before trials, lock your design.', challenge:'Locking the design is the hard part. At some point tuning stops and trusting starts.'},
+      {name:'RACE TRIALS', minutes:8, text:'Two official runs per team. Score distance minus drift penalty for leaving the lane. Best single run counts. Call your distance before each run.', challenge:'Calling your shot in front of the room. Confidence backed by test data.'},
+      {name:'RESET + RECOVER', minutes:4, text:'Sails off and recycled, bases in the bin, lane tape checked, fan off and stored. Sit when clear.', challenge:'Close the racetrack properly. Every piece back to the pit.'}
+    ]
+  },
+  {
+    id:'m56catapult', type:'lesson', title:'CATAPULT RANGE', theme:'READY + AIM', band:'5-6', arc:10,
+    loadout:['Craft sticks, rubber bands, spoons, and bottle caps per team','Foil ball ammo, counted per team','Target zones at three distances with point values','A firing line with range rules on the board'],
+    phases:[
+      {name:'MISSION BRIEF', minutes:5, text:'Your mission: build a catapult with a repeatable launch, then score points across three target distances. Repeatable is the key word. A lucky shot is not engineering.', challenge:'Building for repeatability means the same result every launch. Random power is easy, control is rare.'},
+      {name:'BUILD + CALIBRATE', minutes:18, text:'Build, then calibrate: find and record the setting for each distance, pull-back, angle, arm length. Write your three settings down like a range card.', challenge:'The range card IS the mission. Numbers you can trust beat vibes every time.'},
+      {name:'SCORED SHOOT', minutes:8, text:'Three shots per distance, from your written settings. Points per zone hit. Teams call the target before each shot. Range safety: launch only from the line.', challenge:'Shooting from your card under pressure. Trust your calibration or learn why not.'},
+      {name:'RESET + RECOVER', minutes:4, text:'Ammo counted to the last foil ball, catapults shelved or disassembled, range tape checked. Sit when the range is cold.', challenge:'A cold, counted, clean range. That is how every shoot ends.'}
+    ]
+  },
+  {
+    id:'m56cantilever', type:'lesson', title:'CANTILEVER REACH', theme:'STRONG SHAPES', band:'5-6', arc:11,
+    loadout:['Craft sticks and connectors or straws and tape','One desk edge marked as the anchor zone','A ruler or tape to measure reach','A small weight for the tip test'],
+    phases:[
+      {name:'MISSION BRIEF', minutes:5, text:'Your mission: build a cantilever, a structure that reaches out from the desk edge with NOTHING holding up the far end. Longest reach that holds the tip weight wins.', challenge:'Everything in you wants to prop up the far end. You cannot. Balance and triangles only.'},
+      {name:'BUILD WINDOW', minutes:18, text:'Anchor deep, build light at the tip, triangulate everything. Test the tip weight as you extend. When it sags, reinforce the base, not the tip.', challenge:'The fix is usually at the anchor, not where it sags. Look upstream of the failure.'},
+      {name:'REACH MEASURE', minutes:8, text:'Official measure: weight on the tip, ten second hold, tape measures the reach past the desk edge. Sagging past level counts, breaking does not.', challenge:'Ten seconds of hold after weeks of instinct saying this should not work.'},
+      {name:'RESET + RECOVER', minutes:4, text:'Structures apart, sticks and connectors sorted, desk edges clear. Sit when your build zone is empty.', challenge:'Full teardown, full sort. Leave zero pieces behind.'}
+    ]
+  },
+  {
+    id:'m56program', type:'lesson', title:'HUMAN PROGRAM', theme:'STEP BY STEP', band:'5-6', arc:12,
+    loadout:['Task cards: make a jam sandwich with paper props, or stack a pattern','Paper and pencils for writing programs','Props per team','A strict robot rule card for the executors'],
+    phases:[
+      {name:'MISSION BRIEF', minutes:5, text:'Your mission: write instructions so exact that a human robot completes the task without thinking. The robot does EXACTLY what is written, including the dumb parts. Vague code fails funny.', challenge:'Writing for a reader who will not fill in the gaps. That is what programming actually is.'},
+      {name:'WRITE THE PROGRAM', minutes:14, text:'Write your program: numbered steps, exact amounts, exact directions. Trade a teammate a dry run read-through, then tighten the sloppy lines before execution.', challenge:'Your teammates will find holes in your steps. Thank them and patch the code.'},
+      {name:'EXECUTE + DEBUG', minutes:12, text:'Robots execute programs literally in front of the class. When it goes sideways, freeze, log the bug, fix the line, and rerun from the failed step.', challenge:'Watching your code fail in public and calmly patching line 7. Pure developer life.'},
+      {name:'RESET + RECOVER', minutes:4, text:'Props reset for the next class, programs stapled and binned as evidence, desks clear. Sit when done.', challenge:'Save the buggy drafts too. The bugs are the best teaching evidence.'}
+    ]
+  },
+  {
+    id:'m56binary', type:'lesson', title:'BINARY BEACONS', theme:'SEND A MESSAGE', band:'5-6', arc:13,
+    loadout:['Binary alphabet charts per pair','Flashlights or card flippers per pair','Secret words in envelopes','Sender and receiver stations set apart'],
+    phases:[
+      {name:'MISSION BRIEF', minutes:5, text:'Your mission: send a word across the room in binary, light on is 1, light off is 0, five bits per letter. This is literally how every device in this room talks. Today you ARE the wifi.', challenge:'Ones and zeros with no shortcuts. Precision is the entire message.'},
+      {name:'LEARN + DRILL', minutes:12, text:'Drill with your partner up close: encode your initials to binary with the chart, send, decode, verify. Agree on your timing rhythm, steady beats fast.', challenge:'Sender and receiver must share one rhythm. Agree on it or the message shreds.'},
+      {name:'TRANSMISSION RUNS', minutes:14, text:'Full distance. Send your envelope word bit by bit, receiver decodes letter by letter, then swap roles. Score a clean word each direction.', challenge:'One flipped bit corrupts a letter. Feeling how fragile data is, that is the lesson.'},
+      {name:'RESET + RECOVER', minutes:4, text:'Lights binned, charts stacked, envelopes resealed, stations reset. Sit when your station is clear.', challenge:'Shut the network down clean and reseal the secrets for the next crew.'}
+    ]
+  },
+  {
+    id:'m56line', type:'lesson', title:'LINE OPTIMIZERS', theme:'SORT + SPEED', band:'5-6', arc:14,
+    loadout:['Build kits for a simple repeatable product, like a folded card box','A quality spec on the board with three pass rules','A timer the class can see','Round tally chart per team'],
+    phases:[
+      {name:'MISSION BRIEF', minutes:5, text:'Your mission: run a production line for three timed rounds and OPTIMIZE between rounds. Only products that pass all three quality rules count. Beat your own round one.', challenge:'The opponent is your last round, not the other tables. Systems beat heroics.'},
+      {name:'ROUND ONE + REDESIGN', minutes:14, text:'Set the line, run round one for four minutes, count passes and rejects. Then hold an engineering meeting: find the slowest station and fix THAT.', challenge:'The bottleneck sets the speed of the whole line. Find it with evidence, not opinions.'},
+      {name:'ROUNDS TWO + THREE', minutes:12, text:'Run round two with your fix, count again, one more meeting, one more fix, round three. Chart all three rounds and watch the line learn.', challenge:'Improve, measure, improve again. That loop is the whole science of getting better.'},
+      {name:'RESET + RECOVER', minutes:4, text:'Products stacked and counted, kits rebuilt for the next class, charts filed. Sit when your line is cold.', challenge:'Rebuild the kits completely. The next crew inherits your recovery.'}
+    ]
+  },
+  {
+    id:'m56sprint', type:'lesson', title:'DESIGN SPRINT', theme:'BUILD FOR A FRIEND', band:'5-6', arc:15,
+    loadout:['Interview cards with real user problems, lockers, backpacks, lunch lines','Sketch paper and pencils','Prototype materials: card, tape, string, cups','A pitch spot cleared'],
+    phases:[
+      {name:'MISSION BRIEF', minutes:5, text:'Your mission: a full design sprint in one class. Interview, define, sketch, prototype, pitch. Your user card is a real kid problem. Solve THEIR problem, not the fun one.', challenge:'The discipline of the sprint: fall in love with the problem, not your first idea.'},
+      {name:'INTERVIEW + DEFINE', minutes:6, text:'One teammate plays the user, others interview: what is annoying, when, how often? Then write ONE problem sentence you all agree on.', challenge:'Listening before building. Most bad products skipped this exact step.'},
+      {name:'SKETCH + PICK', minutes:6, text:'Everyone sketches a solution solo, two minutes, no talking. Then compare and pick one direction, or combine two. Vote fast, move on.', challenge:'Killing your own sketch for a better one is sprint maturity. It stings, do it anyway.'},
+      {name:'PROTOTYPE', minutes:12, text:'Build the rough version that shows the idea working. Ugly is fine, unclear is not. Test it against the problem sentence twice while you build.', challenge:'Rough and real beats polished and pointless. Prototype the risky part first.'},
+      {name:'PITCH', minutes:4, text:'Sixty seconds per team at the pitch spot: the problem, the demo, who it helps. This is your CIRC Tank warm-up, treat it like it.', challenge:'Selling a rough prototype with a clear story. That is exactly what the Tank rewards.'},
+      {name:'RESET + RECOVER', minutes:2, text:'Prototypes shelved, sketches filed, materials sorted back. Sit when your studio is clear.', challenge:'Strike the studio fast. Sprints end clean.'}
+    ]
+  },
+  {
+    id:'m56upcycle', type:'lesson', title:'UPCYCLE LAB', theme:'MAKE IT NEW', band:'5-6', arc:16,
+    loadout:['A big shared bin of clean recyclables','Market cards: a problem worth solving per team','Tape, scissors, string per table','A demo table for the market pitch'],
+    phases:[
+      {name:'MISSION BRIEF', minutes:5, text:'Your mission: build a sellable product from the recycle bin that solves your market card problem. Then pitch it like it costs five dollars and everyone needs one.', challenge:'Turning garbage into something someone would PAY for. That is the founder mindset.'},
+      {name:'BUILD WINDOW', minutes:18, text:'Raid the bin, claim your materials, build the product. Keep asking the money question: would a real kid pay for this? Add the feature that makes it a yes.', challenge:'The money question is brutal and useful. Build until the answer is yes.'},
+      {name:'MARKET PITCH', minutes:8, text:'Ninety seconds per team at the demo table: name, demo, price, who buys it. Class votes with imaginary dollars, two per kid, spend them anywhere but your own team.', challenge:'Watching the class spend their dollars elsewhere teaches faster than any lecture.'},
+      {name:'RESET + RECOVER', minutes:4, text:'Products shelved or disassembled into the bin, votes tallied and photographed, tables clear. Sit when the market is closed.', challenge:'Close the market like a pro vendor. Clean stall, counted till.'}
+    ]
+  },
+  {
+    id:'m56skyline', type:'lesson', title:'SPAGHETTI SKYLINE', theme:'BUILD TOGETHER', band:'5-6', arc:17,
+    loadout:['Spaghetti and marshmallows or connectors, a lot','One long table or floor strip as the city line','Height targets marked on a wall chart','Team zone assignments that must CONNECT'],
+    phases:[
+      {name:'MISSION BRIEF', minutes:5, text:'Your mission: the whole class builds ONE connected skyline. Each team owns a tower zone, but every tower must connect to its neighbors with a bridge. The city stands or falls together.', challenge:'Your tower can be perfect and the city can still fail. Team of teams is the final boss of collaboration.'},
+      {name:'TOWER RAISE', minutes:14, text:'Build your zone tower toward your height target. Triangles everywhere. Send one ambassador to plan bridge heights with your neighbor zones NOW, not at the end.', challenge:'The ambassador job is the mission inside the mission. Coordinate early or crash late.'},
+      {name:'CONNECT THE SKYLINE', minutes:10, text:'Bridge to your neighbors at the agreed heights. Reinforce whatever the bridges stress. The skyline is done when you can trace it end to end without a gap.', challenge:'Connecting reveals every mismatch. Fix them together without blame, that is the skill.'},
+      {name:'SKYLINE PHOTO', minutes:2, text:'Hands off. Trace it end to end as a class, count the towers, take the photo. This one goes on the wall.', challenge:'Look at what a room full of builders did in one class. Remember how it happened.'},
+      {name:'RESET + RECOVER', minutes:4, text:'Skyline down zone by zone, spaghetti binned, connectors counted, floor swept. Sit when your zone is spotless.', challenge:'A city-sized build means a city-sized recovery. All hands, all the way.'}
+    ]
+  },
+  {
+    id:'m34straws', type:'lesson', title:'STRAW TOWERS', theme:'STRUCTURES', band:'3-4', arc:2,
+    loadout:['15 straws per team','50 cm of tape per team','A tennis ball or beanbag per team','A measuring stick at the front'],
+    phases:[
+      {name:'MISSION BRIEF', minutes:5, text:'Your mission: build the tallest straw tower that can hold a beanbag on top for 10 seconds. Materials: 15 straws and 50 cm of tape. That is it.', challenge:'Tall wants to tip and strong wants to stay short. Balancing both is the challenge.'},
+      {name:'BUILD WINDOW', minutes:16, text:'Build at your table. Triangles are your friend, straight stacks are not. Test the beanbag as you go, not just at the end.', challenge:'Test early and often. A wobble found early is cheap to fix.'},
+      {name:'HOLD TEST', minutes:8, text:'Hands off. Beanbag goes on top and we count 10 seconds together. Standing towers get measured. Falling towers get a rebuild tip from the class.', challenge:'Ten seconds feels long when your tower is shaking. Trust your triangles.'},
+      {name:'DEBRIEF', minutes:4, text:'Say the one design choice that mattered most, good or bad. Wide base? Triangles? Too much tape too late?', challenge:'Naming the choice that mattered is how you get smarter for the next build.'},
+      {name:'RESET + RECOVER', minutes:2, text:'Straws in the cup, tape balls in the trash, beanbags in the bin. Tables clear. Sit when done.', challenge:'Recover fast and clean. The next crew builds in minutes.'}
+    ]
+  },
+  {
+    id:'m34marble', type:'lesson', title:'MARBLE RUN', theme:'PUSH + ROLL', band:'3-4', arc:3,
+    loadout:['Cardboard tubes and strips per team','Tape and scissors per table','One marble per team','A finish cup per team taped to the floor or wall'],
+    phases:[
+      {name:'MISSION BRIEF', minutes:5, text:'Your mission: build a marble run that starts high, runs at least three seconds, and lands the marble in the cup. Slow and smooth beats fast and flying.', challenge:'Making a marble go SLOW on purpose is harder than letting it fly.'},
+      {name:'BUILD WINDOW', minutes:16, text:'Build your track on the wall or desk. Test one section at a time. Add turns and gentle slopes to slow the marble down. Time your best run.', challenge:'Fix the section that fails, not the whole track. Builders repair, not restart.'},
+      {name:'TIMED RUNS', minutes:8, text:'Three official runs per team. Longest time WITH a cup landing wins. A fast marble that misses the cup scores nothing.', challenge:'Precision under pressure. The cup does not move, your design does.'},
+      {name:'DEBRIEF', minutes:4, text:'What slowed your marble down the best: turns, flat parts, or gentle slopes? One answer per team.', challenge:'You just learned how engineers control energy. Say it out loud.'},
+      {name:'RESET + RECOVER', minutes:2, text:'Tubes stacked, tape off the walls, marbles counted back in. Tables clear. Sit when done.', challenge:'Count every marble back. A clean recovery is part of the run.'}
+    ]
+  },
+  {
+    id:'m34bridge', type:'lesson', title:'PAPER BRIDGE', theme:'SPAN + LOAD', band:'3-4', arc:5,
+    loadout:['10 sheets of paper per team','40 cm of tape per team','A cup and washers or coins for the load','Two desks set one ruler apart'],
+    phases:[
+      {name:'MISSION BRIEF', minutes:5, text:'Your mission: cross the gap between two desks with a paper bridge that holds the most weight. Ten sheets, 40 cm of tape, no taping to the desks.', challenge:'Flat paper is weak. Your job is to make weak material strong with shape.'},
+      {name:'BUILD WINDOW', minutes:16, text:'Fold, roll, or layer your paper to make it stiff. Tubes and accordion folds are strong. Test with a few washers while you build.', challenge:'The shape does the work, not the amount of paper. Experiment.'},
+      {name:'LOAD TEST', minutes:8, text:'Bridges across the gap, cup in the middle. We add washers one at a time and count as a class. The bend before the break tells you everything.', challenge:'Watching your build bend is stressful. Watch anyway, that is the data.'},
+      {name:'DEBRIEF', minutes:4, text:'Which fold or roll held the longest? Tell the class the shape that surprised you.', challenge:'Sharing the shape that worked makes the whole room smarter.'},
+      {name:'RESET + RECOVER', minutes:2, text:'Paper in the recycle bin, washers in the cup, tape off the desks. Sit when your table is clear.', challenge:'Fast, fair, and clean. Leave it ready for the next crew.'}
+    ]
+  },
+  {
+    id:'m34barges', type:'lesson', title:'CARGO BARGES', theme:'FLOAT THE LOAD', band:'3-4', arc:7,
+    loadout:['One foil sheet and 5 straws per team','Tubs of water with towels underneath','Pennies or washers in cups','A dry dock towel station'],
+    phases:[
+      {name:'MISSION BRIEF', minutes:5, text:'Your mission: build a cargo barge from foil and straws that holds the most pennies without sinking. Wide, flat, and balanced wins on the water.', challenge:'The water does not care how it looks. It only rewards good design.'},
+      {name:'BUILD WINDOW', minutes:14, text:'Shape your barge. Straws can be a frame or floats. Test in the tub as you build and watch where water sneaks in.', challenge:'Every leak is information. Patch, reshape, and float it again.'},
+      {name:'CARGO LOADING', minutes:10, text:'Load pennies ONE at a time, spread them out flat. Count out loud as a team. Record your max before the sink.', challenge:'Greedy loading sinks barges. Patient loading breaks records.'},
+      {name:'DEBRIEF', minutes:4, text:'Compare barges: did wide beat deep? Did the straw frame help? One takeaway per team.', challenge:'Compare designs honestly. The best idea might be at another table.'},
+      {name:'RESET + RECOVER', minutes:2, text:'Foil recycled, straws dried and binned, pennies counted back. Wipe your water spots. Sit when dry and clear.', challenge:'Water missions need a dry finish. Wipe it all the way down.'}
+    ]
+  },
+  {
+    id:'m34drop', type:'lesson', title:'CRACKER DROP', theme:'SOFT + SLOW', band:'3-4', arc:8,
+    loadout:['One cracker passenger per team','Paper, straws, cotton, string, and tape','A drop zone marked below the drop spot','A broom for crumb emergencies'],
+    phases:[
+      {name:'MISSION BRIEF', minutes:5, text:'Your mission: a cracker rides your lander from up high and must land WHOLE. Build anything that drops soft and slow: crumple zones, parachutes, cages.', challenge:'Protecting something fragile is real engineering. Cars and helmets work this way.'},
+      {name:'BUILD WINDOW', minutes:16, text:'Build your lander around the cracker. Slow it down with drag or cushion the landing with crumple. Small test drops first, from your chair height.', challenge:'Chair-height tests are cheap. Full-height failures are expensive. Test smart.'},
+      {name:'THE DROP', minutes:8, text:'One official drop per team from full height. Open the lander and inspect: whole cracker, cracked, or crumbs? Whole crackers get the cheer.', challenge:'One official drop. Preparation is the only thing that catches you.'},
+      {name:'DEBRIEF', minutes:4, text:'Cushion or parachute, which did the work? Would you build the same again? One answer per team.', challenge:'Win or crumbs, name what you would change. That is a real debrief.'},
+      {name:'RESET + RECOVER', minutes:2, text:'Landers apart, materials sorted back, crumbs swept. Tables clear. Sit when done.', challenge:'Crumbs and all, recover the zone completely.'}
+    ]
+  },
+  {
+    id:'m34windcars', type:'lesson', title:'WIND CARS', theme:'CATCH THE WIND', band:'3-4', arc:9,
+    loadout:['Car bases with wheels, or lids and straws to make them','Paper and tape for sails','A fan at the start line','Distance markers taped down the track'],
+    phases:[
+      {name:'MISSION BRIEF', minutes:5, text:'Your mission: build a wind-powered car that rolls the farthest. The fan is your only engine. Sail size, sail angle, and rolling smooth are your controls.', challenge:'You cannot push it. You can only design it and let the wind decide.'},
+      {name:'BUILD WINDOW', minutes:16, text:'Build the car and sail. Test on the track and watch: does it tip, drift sideways, or stall? Change ONE thing per test run.', challenge:'One change per test or you will never know what worked.'},
+      {name:'WIND TRIALS', minutes:8, text:'Two official runs per team from the start line. Farthest marker wins. Cars must roll, not slide or fly.', challenge:'Trial time: your build against everyone else and the wind itself.'},
+      {name:'DEBRIEF', minutes:4, text:'Big sail or small sail? Tall or low? Each team names the setting that moved them the farthest.', challenge:'Wind is invisible but your results are not. Read them.'},
+      {name:'RESET + RECOVER', minutes:2, text:'Sails off, bases in the bin, tape in the trash, fan off. Sit when your table is clear.', challenge:'Power down the whole operation cleanly. Finish strong.'}
+    ]
+  },
+  {
+    id:'m34spoon', type:'lesson', title:'SPOON-APULTS', theme:'READY + AIM', band:'3-4', arc:10,
+    loadout:['Craft sticks, rubber bands, and a spoon per team','Pom-poms or foil balls as ammo','Three target zones taped at different distances','A firing line everyone respects'],
+    phases:[
+      {name:'MISSION BRIEF', minutes:5, text:'Your mission: build a catapult from sticks, bands, and a spoon, then hit three targets at three distances. Power is easy. Control is the mission.', challenge:'Anyone can launch far. Landing WHERE you want is the real skill.'},
+      {name:'BUILD WINDOW', minutes:14, text:'Build your catapult and find its settings: pull-back distance, launch angle, ammo seat. Practice shots at the near target first, then step it up.', challenge:'Find your settings and WRITE them down. Guessing twice is wasting a shot.'},
+      {name:'TARGET TRIALS', minutes:10, text:'Three official shots per target zone, near, mid, far. Score a point per zone hit. Every launch happens from the firing line, every time.', challenge:'Adjusting between shots under pressure, that is engineering in the wild.'},
+      {name:'DEBRIEF', minutes:4, text:'Which distance was hardest and what setting fixed it? One answer per team, short and sharp.', challenge:'The team that knows WHY they hit will hit again tomorrow.'},
+      {name:'RESET + RECOVER', minutes:2, text:'Ammo counted back, catapults disassembled or shelved, bands in the cup. Sit when clear.', challenge:'Count the ammo. All of it. Recovery is part of range safety.'}
+    ]
+  },
+  {
+    id:'m34columns', type:'lesson', title:'PAPER COLUMNS', theme:'STRONG SHAPES', band:'3-4', arc:11,
+    loadout:['4 sheets of paper per team','30 cm of tape per team','A stack of books for loading','A flat board to spread the load'],
+    phases:[
+      {name:'MISSION BRIEF', minutes:5, text:'Your mission: roll or fold paper into columns that hold a stack of books off the table. Circle, triangle, or square columns, you pick. Strongest stack wins.', challenge:'Paper holding books sounds fake. Shape makes it true.'},
+      {name:'BUILD WINDOW', minutes:14, text:'Build 3 or 4 columns and stand them up. Think about height, width, and shape. Test with one book while you build.', challenge:'Short and wide or tall and tight? Test instead of arguing.'},
+      {name:'BOOK LOAD', minutes:10, text:'Board on top of your columns, then books ONE at a time as the class counts. Watch for the lean, the buckle, and the moment it lets go.', challenge:'The buckle is sudden. Watching for the warning signs is the lesson.'},
+      {name:'DEBRIEF', minutes:4, text:'Which shape held the most: circles, triangles, or squares? Compare across tables and say why you think it won.', challenge:'Real engineers argue from results, not opinions. You have results now.'},
+      {name:'RESET + RECOVER', minutes:2, text:'Books restacked, columns recycled, tape in the trash. Sit when your table is clear.', challenge:'Restack the books neat. The recovery is part of the grade in life.'}
+    ]
+  },
+  {
+    id:'m34maze', type:'lesson', title:'MAZE CODERS', theme:'STEP BY STEP', band:'3-4', arc:12,
+    loadout:['Grid mazes on paper per pair','Arrow instruction cards or pencils to write steps','A token or mini figure per pair','A demo maze drawn on the board'],
+    phases:[
+      {name:'MISSION BRIEF', minutes:5, text:'Your mission: write a program, a list of arrow steps, that moves your token through the maze without hitting a wall. Then your partner runs your code EXACTLY.', challenge:'The computer does what you WROTE, not what you meant. Welcome to coding.'},
+      {name:'WRITE THE CODE', minutes:12, text:'Trace the maze with your finger, then write the full arrow list: up, up, right, down. Check it twice before you call it done.', challenge:'Checking your own code before it runs is a pro habit. Start now.'},
+      {name:'RUN + DEBUG', minutes:12, text:'Partners swap codes and run them exactly, one arrow at a time. When the token hits a wall, STOP, find the broken step, fix it, and rerun from the start.', challenge:'Bugs are normal. Finding the exact broken step is the skill.'},
+      {name:'DEBRIEF', minutes:4, text:'How many bugs did your pair find and fix? What kind of mistake showed up most, wrong turn or too many steps?', challenge:'Counting your bugs without shame, that is how coders level up.'},
+      {name:'RESET + RECOVER', minutes:2, text:'Mazes and cards stacked, tokens in the cup, pencils home. Sit when your table is clear.', challenge:'Clean shutdown. Save your best maze for the next crew to try.'}
+    ]
+  },
+  {
+    id:'m34morse', type:'lesson', title:'MORSE MESSENGERS', theme:'SEND A MESSAGE', band:'3-4', arc:13,
+    loadout:['Morse code charts per pair','Flashlights or clickers per pair, or use taps','Short secret words in envelopes','Partner stations set apart'],
+    phases:[
+      {name:'MISSION BRIEF', minutes:5, text:'Your mission: send a secret word across the room using only dots and dashes. Short blink is a dot, long blink is a dash. Real ships did this for a hundred years.', challenge:'Two signals, that is all you get. Simple tools, careful sender.'},
+      {name:'LEARN THE CODE', minutes:10, text:'Practice with your partner up close. Send S-O-S, then your initials. Sender goes slow, receiver checks the chart. Swap jobs.', challenge:'Slow and right beats fast and wrong. Speed comes later.'},
+      {name:'SECRET MESSAGES', minutes:14, text:'Split across the room. Open your envelope and send the secret word letter by letter. Receiver writes it down, then you swap. Two rounds each.', challenge:'Distance plus code plus patience. Getting a whole word across is a real win.'},
+      {name:'DEBRIEF', minutes:4, text:'Which letters kept breaking? What did good senders do differently? One tip per pair.', challenge:'Clear sending is a skill you just built. Name what made it clear.'},
+      {name:'RESET + RECOVER', minutes:2, text:'Lights off and binned, charts stacked, envelopes resealed for the next class. Sit when clear.', challenge:'Reseal the secrets. The next crew deserves the same mission.'}
+    ]
+  },
+  {
+    id:'m34factory', type:'lesson', title:'PLANE FACTORY', theme:'SORT + SPEED', band:'3-4', arc:14,
+    loadout:['Paper stacks per team','A quality checklist on the board: 3 folds sharp, wings even, flies straight','A test flight lane','A finished bin per team'],
+    phases:[
+      {name:'MISSION BRIEF', minutes:5, text:'Your mission: your team is a factory. Build as many QUALITY paper planes as you can. A plane only counts if it passes inspection: sharp folds, even wings, straight flight.', challenge:'Fast junk does not count. Fast AND good is the factory game.'},
+      {name:'DESIGN THE LINE', minutes:8, text:'Set up your assembly line: who folds step one, step two, wings, inspection? Practice the handoffs slowly one time.', challenge:'A factory is a team program. Every station matters or the line jams.'},
+      {name:'PRODUCTION RUN', minutes:14, text:'Factory ON. Build for the full window. Inspector checks every plane against the board and test-flies the doubtful ones. Jammed line? Fix the station, keep moving.', challenge:'When the line jams, fix the process, not the blame. That is teamwork under pressure.'},
+      {name:'QUALITY COUNT', minutes:6, text:'Count ONLY the planes that passed inspection. Compare team counts and inspection rejects. Best line shares their secret.', challenge:'Your reject pile teaches more than your pass pile. Look at it.'},
+      {name:'RESET + RECOVER', minutes:2, text:'Passed planes in the bin for recess flying, rejects recycled, stations cleared. Sit when done.', challenge:'Shut the factory down clean. Fast recovery, no leftovers.'}
+    ]
+  },
+  {
+    id:'m34hands', type:'lesson', title:'HELPING HANDS', theme:'BUILD FOR A FRIEND', band:'3-4', arc:15,
+    loadout:['User cards: a gardener, a painter, a dog walker with full hands','Cardboard, cups, string, straws, and tape','One problem sentence per card','A demo of a bad tool to laugh at and fix'],
+    phases:[
+      {name:'MISSION BRIEF', minutes:5, text:'Your mission: flip your user card and build a tool that solves THEIR problem, like a carrier for the dog walker with full hands. You are not building for you.', challenge:'Designing for someone else means their problem is the boss, not your cool idea.'},
+      {name:'PLAN FOR THE USER', minutes:6, text:'Read the problem sentence twice. Say it in your own words. Sketch a tool that attacks THAT problem, then split the build jobs.', challenge:'Repeating the problem in your own words stops you from solving the wrong one.'},
+      {name:'BUILD WINDOW', minutes:14, text:'Build the tool. Every few minutes, ask the check question: does this actually help our user? Cut features that do not.', challenge:'Cutting a cool feature that does not help is hard. Do it anyway.'},
+      {name:'USER TEST', minutes:8, text:'One teammate plays the user, full hands and all, and tries the tool for real. Does it help? Make one fix, then demo the final to the class.', challenge:'Watching your user struggle with your tool stings. Watch, learn, fix.'},
+      {name:'RESET + RECOVER', minutes:2, text:'Tools on the shelf, scraps sorted, user cards back in the deck. Sit when your table is clear.', challenge:'Recover fast. Your user would want their workspace back too.'}
+    ]
+  },
+  {
+    id:'m34trash', type:'lesson', title:'TRASH TO TREASURE', theme:'MAKE IT NEW', band:'3-4', arc:16,
+    loadout:['A bin of clean recyclables per team','Job cards: holds, protects, moves, or measures something','Tape and scissors per table','A judging table cleared'],
+    phases:[
+      {name:'MISSION BRIEF', minutes:5, text:'Your mission: turn recycling into a working invention that does the job on your card, holds, protects, moves, or measures. Working beats pretty, every time.', challenge:'Inventors see parts where others see garbage. Train your eyes today.'},
+      {name:'INVENT + BUILD', minutes:16, text:'Dig, plan fast, build. Test the job WHILE you build, not at the end. If your invention fails its job, change the design, not the job.', challenge:'The job on the card is the contract. Meet it, no excuses, no shortcuts.'},
+      {name:'PROOF DEMO', minutes:8, text:'Prove it at the judging table: your invention does its job in front of everyone, one demo, one retry allowed after one fix.', challenge:'Live demos go wrong. The one-fix retry is where champions are made.'},
+      {name:'DEBRIEF', minutes:4, text:'Name your invention and the piece of junk that turned out most valuable. Would you patent it? One answer per team.', challenge:'Naming and owning your invention with pride, that is inventor confidence.'},
+      {name:'RESET + RECOVER', minutes:2, text:'Inventions on the shelf or apart in the bin, scraps sorted, tools home. Sit when clear.', challenge:'A clean shop after a messy build. That is the pro move.'}
+    ]
+  },
+  {
+    id:'m34forts', type:'lesson', title:'NEWSPAPER FORTS', theme:'BUILD TOGETHER', band:'3-4', arc:17,
+    loadout:['Big stacks of newspaper or scrap paper','One tape roll per team, rationed','Floor zones taped per team','A fits-a-teammate test rule on the board'],
+    phases:[
+      {name:'MISSION BRIEF', minutes:5, text:'Your mission: build a paper fort big enough for a teammate to sit inside. Rolled paper tubes are your lumber. This only works if the whole team builds together.', challenge:'A fort for a real person is a big build. Big builds need every teammate.'},
+      {name:'ROLL THE LUMBER', minutes:8, text:'Factory first: roll tight paper tubes, the tighter the stronger. Make a pile of lumber before you build anything. Everyone rolls.', challenge:'Boring strong tubes now, or exciting collapse later. Choose the tubes.'},
+      {name:'RAISE THE FORT', minutes:14, text:'Frame first: triangles and squares from tubes, then walls. Connect corners well. Test strength gently as it rises.', challenge:'When a wall sags, the team fixes it together. No solo heroes, no blame.'},
+      {name:'MOVE-IN TEST', minutes:6, text:'The moment of truth: one teammate sits inside. Fort stands for 10 seconds with them in it, the class counts, the team takes the photo pose.', challenge:'Ten seconds with a human inside. That is a real load test.'},
+      {name:'RESET + RECOVER', minutes:2, text:'Forts down, tubes flattened into the recycle bin, floor zones clear. Sit when your zone is empty.', challenge:'Take it down as a team, same as you raised it.'}
+    ]
+  },
+  {
+    id:'m34demo', type:'lesson', title:'DEMO DAY', theme:'SHOWCASE', band:'3-4', arc:18,
+    loadout:['Favorite builds or photos from the year','A demo table up front','Feedback slips: one star, one wish','A speaking checklist on the board: loud, slow, proud'],
+    phases:[
+      {name:'MISSION BRIEF', minutes:5, text:'Your mission: demo your best build from this year like it is launch day. Say what it is, show it working, and tell us the failure that made it better.', challenge:'Showing your work to a room takes more guts than building it. Today you show.'},
+      {name:'PREP THE DEMO', minutes:8, text:'Pick your build, plan your three lines: what it is, watch it work, what broke and how I fixed it. Practice once with a partner.', challenge:'Three clear lines beat ten mumbled ones. Cut it down.'},
+      {name:'DEMO ROUND', minutes:14, text:'Demos at the front, one at a time. Audience fills a feedback slip for every demo: one star, one wish. Loud, slow, proud.', challenge:'Standing tall while your build wobbles, that is presenter courage.'},
+      {name:'FEEDBACK EXCHANGE', minutes:6, text:'Read your slips. Circle the star that made you smile and the wish you agree with. Tell your table one thing you would improve next year.', challenge:'Taking a wish without getting defensive is a skill most adults are still learning.'},
+      {name:'RESET + RECOVER', minutes:2, text:'Builds and photos collected, slips in the folder, demo table cleared. Sit when done.', challenge:'Last recovery of the year. Make it your cleanest one.'}
+    ]
+  },
+  {
+    id:'k2spinners', type:'lesson', title:'PAPER SPINNERS', theme:'SPIN + DROP', band:'K-2', arc:4,
+    loadout:['Spinner strips pre-cut per kid','Paper clips in a cup per table','A chair or step stool for drop tests','Clear floor space marked for drops'],
+    phases:[
+      {name:'WATCH + LEARN', minutes:4, text:'Watch my paper spinner drop. It spins like a helicopter. Today you make your own spinner and make it spin slow and steady.', challenge:'New builds feel tricky at first. Watching close is how builders start.'},
+      {name:'FOLD + BUILD', minutes:12, text:'Fold your spinner on the lines. One wing folds toward you, one folds away. Add one paper clip to the bottom. Test it with a small drop.', challenge:'Folding neat takes patience. Slow hands make strong spinners.'},
+      {name:'DROP + WATCH', minutes:8, text:'Drop your spinner from up high. Does it spin or does it flop? Try a second paper clip. Watch what changes.', challenge:'If it flops, that is a clue, not a fail. Change one thing and drop it again.'},
+      {name:'SHOW + TELL', minutes:6, text:'Show us your best spinner drop. Tell us one thing you changed to make it spin better.', challenge:'Telling us what you learned is brave. Builders share their tries.'},
+      {name:'CLEAN UP', minutes:5, text:'Spinners in the tray. Paper clips back in the cup. Sit criss-cross when your spot is clean.', challenge:'A clean room is a team win. Finish strong.'}
+    ]
+  },
+  {
+    id:'k2blockbridge', type:'lesson', title:'BLOCK BRIDGES', theme:'CROSS THE GAP', band:'K-2', arc:5,
+    loadout:['Blocks and flat pieces per table','Two bases set a hand apart','A toy animal per table to cross','Extra blocks in the middle bin'],
+    phases:[
+      {name:'WATCH + LEARN', minutes:4, text:'This animal needs to cross the gap. Watch me build a bridge with blocks. Today you build a bridge strong enough for your animal to cross.', challenge:'A gap looks impossible until you build across it. That is the challenge.'},
+      {name:'BUILD THE BRIDGE', minutes:12, text:'Build your bridge across the gap. Use flat pieces for the road and blocks to hold it up. Test it gently as you go.', challenge:'Wobbly is a clue. Fix the wobble before you build higher.'},
+      {name:'ANIMAL CROSSING', minutes:8, text:'Walk your animal across the bridge, slow and steady. If the bridge falls, rebuild it stronger and try again.', challenge:'When it falls, builders build again. That is what makes them builders.'},
+      {name:'SHOW + TELL', minutes:6, text:'Show us your bridge. Tell us the strongest part and how you made it strong.', challenge:'Knowing WHY it is strong is real builder thinking.'},
+      {name:'CLEAN UP', minutes:5, text:'Blocks back in the bin. Animals back home. Sit criss-cross when your spot is clean.', challenge:'Leave the space ready for the next crew. Finish strong.'}
+    ]
+  },
+  {
+    id:'k2dominoes', type:'lesson', title:'DOMINO LINES', theme:'TIP + TUMBLE', band:'K-2', arc:6,
+    loadout:['Dominoes or standing blocks per table','A start sticker and a finish sticker per table','Clear table space','Steady hands reminder on the board'],
+    phases:[
+      {name:'WATCH + LEARN', minutes:4, text:'Watch the dominoes fall, one tips the next. Today you build a domino line from the start sticker to the finish sticker.', challenge:'One little push starts the whole line. Small moves matter.'},
+      {name:'BUILD THE LINE', minutes:12, text:'Stand your dominoes in a line, one finger space apart. If some fall early, take a breath and stand them back up.', challenge:'They WILL tip early sometimes. Calm builders reset and keep going.'},
+      {name:'TIP + TUMBLE', minutes:8, text:'Tip the first domino and watch the line run. Did it reach the finish? Fix the gaps and run it again.', challenge:'A gap that stops the line is a clue. Find it and fix it.'},
+      {name:'SHOW + TELL', minutes:6, text:'Each table runs their line for the class. Tell us one fix that helped your line reach the finish.', challenge:'Cheer every run, long or short. Brave tries matter most.'},
+      {name:'CLEAN UP', minutes:5, text:'Dominoes flat in the box. Stickers stay on the table. Sit criss-cross when your spot is clean.', challenge:'Pack up neat so the next class can build too.'}
+    ]
+  },
+  {
+    id:'k2foilboats', type:'lesson', title:'FOIL BOATS', theme:'FLOAT THE LOAD', band:'K-2', arc:7,
+    loadout:['One foil square per kid','Tubs of water per table with towels under','Counting cubes or pennies in cups','Dry towel station ready'],
+    phases:[
+      {name:'WATCH + LEARN', minutes:4, text:'Watch my foil boat float. Now watch it hold cubes without sinking. Today you build a boat that floats and holds treasure.', challenge:'Thin foil holding heavy treasure sounds impossible. Builders try anyway.'},
+      {name:'SHAPE THE BOAT', minutes:10, text:'Shape your foil into a boat with tall sides and a flat bottom. Float it in the tub. If water sneaks in, reshape it.', challenge:'If it leans or leaks, reshape it. Every fix makes it float better.'},
+      {name:'LOAD THE TREASURE', minutes:10, text:'Add cubes one at a time, nice and gentle. Count out loud. How many can your boat hold before it sinks?', challenge:'Loading slow and counting careful is the challenge. Steady wins.'},
+      {name:'SHOW + COUNT', minutes:6, text:'Tell us your biggest number. Show us your boat shape. Tall sides or wide bottom, what helped?', challenge:'Every boat teaches us something, even the ones that sank.'},
+      {name:'CLEAN UP', minutes:5, text:'Foil in the recycle bin. Cubes counted back in the cups. Hands dried. Sit when your spot is clean.', challenge:'Wet spots get wiped. Finish the mission all the way.'}
+    ]
+  },
+  {
+    id:'k2safeland', type:'lesson', title:'SAFE LANDING', theme:'SOFT + SLOW', band:'K-2', arc:8,
+    loadout:['A small toy passenger per team','Cups, cotton balls, paper, and tape per table','A drop spot marked on the floor','A step stool for the drop tester'],
+    phases:[
+      {name:'WATCH + LEARN', minutes:4, text:'This little passenger needs a safe landing. Watch what happens with no lander, ouch. Today you build a lander that keeps your passenger safe.', challenge:'Keeping someone safe is a big job. Big jobs are the best challenges.'},
+      {name:'BUILD THE LANDER', minutes:12, text:'Build a soft landing spot around your passenger with cups, cotton, and paper. Think soft, think slow. Test with a tiny drop first.', challenge:'Test small before you test big. Smart builders check as they go.'},
+      {name:'DROP TEST', minutes:8, text:'Drop your lander from up high. Did your passenger stay safe inside? Add more soft stuff where it hit hard, then drop again.', challenge:'A bumpy landing is a clue. Fix the bumpy part and go again.'},
+      {name:'SHOW + TELL', minutes:6, text:'Show us your lander and your passenger. Tell us the soft part that worked best.', challenge:'Sharing your best idea helps every builder in the room.'},
+      {name:'CLEAN UP', minutes:5, text:'Cotton and cups back in the bins. Passengers back home safe. Sit when your spot is clean.', challenge:'A safe mission ends with a clean room. Finish strong.'}
+    ]
+  },
+  {
+    id:'k2sail', type:'lesson', title:'SAIL SCOOTERS', theme:'CATCH THE WIND', band:'K-2', arc:9,
+    loadout:['A light toy car or lid scooter per pair','Paper, straws, and tape for sails','A fan or big cardboard for wind','A start line and finish line taped down'],
+    phases:[
+      {name:'WATCH + LEARN', minutes:4, text:'Watch the wind push my sail scooter, no hands. Today you build a sail so the wind can push your scooter across the floor.', challenge:'You cannot see wind, but you can catch it. That is the trick to learn.'},
+      {name:'BUILD THE SAIL', minutes:12, text:'Build a sail and stand it up on your scooter. Big sails catch more wind. Make sure it does not tip your scooter over.', challenge:'Too big tips over, too small does not move. Finding just right is the challenge.'},
+      {name:'WIND TEST', minutes:8, text:'Line up at the start. When the wind comes, hands off. Watch how far your scooter goes. Fix your sail and try again.', challenge:'Hands off is hard. Let the wind and your build do the work.'},
+      {name:'SHOW + TELL', minutes:6, text:'Show us your sail. Tell us one change that made your scooter go farther.', challenge:'One change at a time is how builders figure things out.'},
+      {name:'CLEAN UP', minutes:5, text:'Sails in the tray, scooters in the bin, tape bits in the trash. Sit when your spot is clean.', challenge:'Clean floor, happy feet. Finish strong.'}
+    ]
+  },
+  {
+    id:'k2pompom', type:'lesson', title:'POM-POM LAUNCH', theme:'READY + AIM', band:'K-2', arc:10,
+    loadout:['Plastic spoons and pom-poms per pair','Blocks to prop the spoons','Target circles taped on the floor','A launch line every kid can see'],
+    phases:[
+      {name:'WATCH + LEARN', minutes:4, text:'Watch the pom-pom fly off the spoon and land in the circle. Today you build a launcher and aim for the target.', challenge:'Aiming takes practice. Nobody hits the middle on try one.'},
+      {name:'BUILD + PRACTICE', minutes:12, text:'Prop your spoon on the blocks to make a launcher. Press, launch, watch where it lands. Move your launcher a little and try again.', challenge:'Watch where it lands and change one thing. That is how aim gets better.'},
+      {name:'TARGET TIME', minutes:8, text:'Three official launches each from the launch line. Closest to the middle circle gets a class cheer. Cheer every single launch.', challenge:'Pressure time. Take a breath, aim, and let it fly.'},
+      {name:'SHOW + TELL', minutes:6, text:'Tell us your best trick for aiming. Was it a soft press or a hard press? High launcher or low launcher?', challenge:'Your trick might help a friend hit the target too.'},
+      {name:'CLEAN UP', minutes:5, text:'Pom-poms counted back in the cups. Spoons and blocks in the tray. Sit when your spot is clean.', challenge:'Count them all back in. A full cup means a finished mission.'}
+    ]
+  },
+  {
+    id:'k2shapes', type:'lesson', title:'SHAPE BUILDERS', theme:'STRONG SHAPES', band:'K-2', arc:11,
+    loadout:['Craft sticks and clay dots or connectors','A square and a triangle demo built ahead','Small weights or beanbags to test','Table space cleared per team'],
+    phases:[
+      {name:'WATCH + LEARN', minutes:4, text:'Push the square, it leans. Push the triangle, it holds. Triangles are the strong shape. Today you build with triangles to make something strong.', challenge:'Strong is not about big. Strong is about the right shape.'},
+      {name:'BUILD STRONG', minutes:12, text:'Build a wall or a little tower using triangles with your sticks and clay dots. Push it gently as you build. If it leans, add a triangle.', challenge:'When it leans, do not start over. Add a triangle where it is weak.'},
+      {name:'PUSH TEST', minutes:8, text:'Time to test. Gentle pushes, then a beanbag on top. Does your build hold? Make the weak spot stronger and test again.', challenge:'Testing is not being mean to your build. It is how we make it better.'},
+      {name:'SHOW + TELL', minutes:6, text:'Point to the strongest triangle in your build and tell us why it helps. Count your triangles out loud together.', challenge:'Seeing shapes inside builds is a real engineer skill. You have it now.'},
+      {name:'CLEAN UP', minutes:5, text:'Sticks in the tray, clay dots in the tub. Sit criss-cross when your spot is clean.', challenge:'A clean table is the last phase of every mission. Finish it.'}
+    ]
+  },
+  {
+    id:'k2robot', type:'lesson', title:'ROBOT TEACHER', theme:'STEP BY STEP', band:'K-2', arc:12,
+    loadout:['A robot hat or badge for the teacher','Step cards with arrows and actions','A simple goal set up, like stack two cups','Floor path taped if walking steps'],
+    phases:[
+      {name:'WATCH + LEARN', minutes:4, text:'Today I am a robot. Robots only do EXACTLY what you say. If your steps are wrong, the robot goes wrong. Your job: give the robot perfect steps.', challenge:'Being exact is harder than it looks. That is the whole game.'},
+      {name:'PLAN THE STEPS', minutes:10, text:'With your table, put the step cards in order to make the robot reach the goal. Walk, turn, pick up, put down. Check your order twice.', challenge:'Slow careful planning beats fast messy planning. Check it twice.'},
+      {name:'RUN THE ROBOT', minutes:10, text:'Tables take turns reading their steps to the robot. Watch close. When the robot goes wrong, find the broken step and fix it.', challenge:'When the robot fails, the STEPS need fixing, not the robot. Find the bug.'},
+      {name:'SHOW + TELL', minutes:6, text:'Tell us the trickiest step your table fixed. Why did the robot get confused?', challenge:'Finding the confusing step is called debugging. You just did it.'},
+      {name:'CLEAN UP', minutes:5, text:'Step cards stacked in order in the tray. Cups reset for the next class. Sit when your spot is clean.', challenge:'Reset the game for the next crew. Finish strong.'}
+    ]
+  },
+  {
+    id:'k2flags', type:'lesson', title:'SIGNAL FLAGS', theme:'SEND A MESSAGE', band:'K-2', arc:13,
+    loadout:['Two paper flags per kid','A class code chart on the board, like one wave means hi','Partner spots marked across the room','Quiet signal practiced first'],
+    phases:[
+      {name:'WATCH + LEARN', minutes:4, text:'Before phones, people sent messages with flags. Watch: one wave means HI, two waves means LOOK. Today you send messages across the room with flags, no talking.', challenge:'Talking is easy. Sending a message WITHOUT talking is the challenge.'},
+      {name:'LEARN THE CODE', minutes:10, text:'Practice the class code with your partner up close. HI, LOOK, LINE UP, GOOD JOB. Take turns sending and guessing.', challenge:'Both people have to know the code or the message breaks.'},
+      {name:'ACROSS THE ROOM', minutes:10, text:'Partners split to opposite sides. Send a secret message with your flags. Did your partner get it right? Switch jobs and go again.', challenge:'Far away is harder. Big clear waves beat fast messy waves.'},
+      {name:'SHOW + TELL', minutes:6, text:'Which message was easiest to send? Which was hardest to guess? Should we invent one new code together?', challenge:'Inventing a code together means everyone has to agree. Teamwork.'},
+      {name:'CLEAN UP', minutes:5, text:'Flags flat in the tray. Walk your spot back. Sit criss-cross when your area is clean.', challenge:'End the mission the same way every time. Clean and calm.'}
+    ]
+  },
+  {
+    id:'k2sort', type:'lesson', title:'SORTING RACE', theme:'SORT + SPEED', band:'K-2', arc:14,
+    loadout:['Mixed bins of blocks, buttons, or shapes per table','Sorting mats with color or shape labels','A timer the class can see','Reset bins ready'],
+    phases:[
+      {name:'WATCH + LEARN', minutes:4, text:'This bin is a mess. Watch me sort it by color, fast and neat. Machines in factories sort like this all day. Today your table becomes a sorting machine.', challenge:'Fast AND neat is the hard part. Anyone can do just one.'},
+      {name:'PLAN THE MACHINE', minutes:10, text:'Decide as a table: who sorts what? Maybe one kid does red, one does blue. Set up your mats. Do a slow practice sort.', challenge:'A good plan makes the race easy. Talk it out before you go fast.'},
+      {name:'SORTING RACE', minutes:10, text:'Ready, set, sort! When your bin is empty and your mats are neat, hands up. Then we mix it and race again, even faster.', challenge:'If your table gets jammed up, fix the plan between rounds.'},
+      {name:'SHOW + TELL', minutes:6, text:'What plan made round two faster than round one? Every table shares one speed trick.', challenge:'Getting faster the second time means your team LEARNED. That is the win.'},
+      {name:'CLEAN UP', minutes:5, text:'Everything back in the mixed bin for the next class. Mats stacked. Sit when your spot is clean.', challenge:'One last sort: everything back home. Finish strong.'}
+    ]
+  },
+  {
+    id:'k2home', type:'lesson', title:'BUILD A HOME', theme:'BUILD FOR A FRIEND', band:'K-2', arc:15,
+    loadout:['A toy animal friend per team','Boxes, paper, fabric scraps, and tape','A checklist card: door, bed, roof','Scissors at the teacher table for helpers'],
+    phases:[
+      {name:'WATCH + LEARN', minutes:4, text:'This little friend needs a home. What does a home need? A door to get in, a bed to sleep, a roof to stay dry. Today you build a home your friend needs.', challenge:'Building for SOMEONE ELSE means thinking about what THEY need.'},
+      {name:'BUILD THE HOME', minutes:14, text:'Build the home with your team. Check the card: door, bed, roof. Test that your friend actually fits inside.', challenge:'If your friend does not fit, the builder changes the house, not the friend.'},
+      {name:'FRIEND MOVES IN', minutes:6, text:'Move your friend in. Walk them through the door, tuck them in the bed, check the roof. Fix anything that does not work.', challenge:'The move-in test tells the truth. Fix what it shows you.'},
+      {name:'SHOW + TELL', minutes:6, text:'Give us the home tour. Show the door, the bed, and the roof, and tell us the part your friend loves most.', challenge:'Talking about who you built it FOR is what real designers do.'},
+      {name:'CLEAN UP', minutes:5, text:'Scraps in the trash, materials in the bins, friends back in their basket. Sit when your spot is clean.', challenge:'Builders always clean the job site. Finish strong.'}
+    ]
+  },
+  {
+    id:'k2junk', type:'lesson', title:'JUNK BUILD', theme:'MAKE IT NEW', band:'K-2', arc:16,
+    loadout:['A big bin of clean recycables per table','Tape stations loaded','A mystery job card per table, like make something that carries','Trash and recycle bins by the door'],
+    phases:[
+      {name:'WATCH + LEARN', minutes:4, text:'This is not trash, it is treasure. A tube can be a tunnel. A box can be a truck. Flip your job card and build something that does the job, out of junk.', challenge:'Seeing treasure where others see trash is an inventor superpower.'},
+      {name:'INVENT + BUILD', minutes:14, text:'Build your invention with your team. It has to DO the job on your card, not just look cool. Test it while you build.', challenge:'Cool looking is easy. Actually working is the challenge. Test it.'},
+      {name:'JOB TEST', minutes:6, text:'Prove it. If your card says carries, it has to carry something across the table. One test run per team, then one fix, then the real run.', challenge:'The test does not care how hard you worked. Fix what it shows and run again.'},
+      {name:'SHOW + TELL', minutes:6, text:'Name your invention and show us the job it does. What piece of junk turned out to be the most useful?', challenge:'Every inventor names their build. Own it with pride.'},
+      {name:'CLEAN UP', minutes:5, text:'Loose junk back in the bin, tape bits in the trash. Inventions on the shelf if you want to show them off. Sit when clean.', challenge:'Inventors keep a clean shop. Finish the job.'}
+    ]
+  },
+  {
+    id:'k2cupcity', type:'lesson', title:'CUP CITY', theme:'BUILD TOGETHER', band:'K-2', arc:17,
+    loadout:['Big tubs of cups, more than usual','Floor space taped into city zones','Zone jobs: towers, walls, bridges','A city photo spot picked'],
+    phases:[
+      {name:'WATCH + LEARN', minutes:4, text:'Today the WHOLE CLASS builds one giant cup city. Every table gets a zone: towers, walls, or bridges. The city only works if every zone works together.', challenge:'Building alone is easy. Building one big thing TOGETHER is the real challenge.'},
+      {name:'BUILD YOUR ZONE', minutes:12, text:'Build your zone big and strong. Walk carefully, slow feet near the city. If a neighbor zone falls, help them rebuild.', challenge:'Helping a fallen zone IS the mission. One city, one team.'},
+      {name:'CONNECT THE CITY', minutes:8, text:'Now connect your zone to your neighbors with cup bridges and walls. Make one city with no gaps.', challenge:'Connecting means agreeing with your neighbors. Talk it out, then build it.'},
+      {name:'CITY TOUR', minutes:6, text:'Hands in laps, eyes on the city. We walk the tour together and take the class photo. Every builder points to their part.', challenge:'Look what a whole team can build in one class. Remember this one.'},
+      {name:'CLEAN UP', minutes:5, text:'The city comes down zone by zone, cups stacked in towers of ten, tubs filled. Sit when your zone is clear.', challenge:'Even the clean up is a team build. Count your stacks of ten.'}
+    ]
+  },
+  {
+    id:'k2show', type:'lesson', title:'SHOW + SHINE', theme:'SHOWCASE', band:'K-2', arc:18,
+    loadout:['Favorite builds or photos from the year ready','A shine spot marked, like a stage square','Two sentence starters on the board','Cheer rules reviewed: eyes, ears, hands'],
+    phases:[
+      {name:'WATCH + LEARN', minutes:4, text:'All year you built, tested, and fixed. Today you SHOW. Watch me shine first: I made this, and I am proud because. Now you practice.', challenge:'Standing up and sharing is the bravest build of all.'},
+      {name:'PRACTICE ROUND', minutes:10, text:'Practice with your partner in a whisper voice: I made this, and I am proud because. Two times each. Big smile, loud clear words.', challenge:'Practice makes brave. The second try always feels better.'},
+      {name:'SHINE TIME', minutes:12, text:'One at a time on the shine spot. Say your two sentences. The class gives eyes, ears, and a big cheer for every single builder.', challenge:'Cheering for others is part of shining. Give the cheer you want to get.'},
+      {name:'CLASS CHEER', minutes:4, text:'Last cheer for the whole class and the whole year of building. You embraced the challenge, every one of you.', challenge:'You did hard things all year and got better every time. That was the whole point.'},
+      {name:'CLEAN UP', minutes:5, text:'Builds back on the shelf, photos in the folder, chairs in. Sit when your spot is clean.', challenge:'Last clean up of the mission. Make it the best one.'}
+    ]
+  },
+  {
+    id:'challenge', type:'lesson', title:'THE CHALLENGE', theme:'EMBRACE IT', band:'ALL', arc:1,
     loadout:['Challenge cards face down at each table','Build materials sorted in trays','A fail log sheet per builder','Timer on the board','Showcase zone cleared'],
     phases:[
       {name:'THE BRIEF', minutes:4, text:'Flip your challenge card. Read the goal and the limits out loud at your table. You will not get it right the first time, and that is exactly the point.', challenge:'Saying the hard part out loud before you start is how you embrace it.'},
@@ -723,7 +1203,7 @@ const DEFAULT_MISSIONS = [
     ]
   },
   {
-    id:'cuptowers', type:'lesson', title:'CUP TOWERS', theme:'STACK + REBUILD', band:'K-2',
+    id:'cuptowers', type:'lesson', title:'CUP TOWERS', theme:'STACK + REBUILD', band:'K-2', arc:2,
     loadout:['A tub of plastic cups per table','A clear flat space at each spot','A builder spot marked for each kid','Camera ready for the tall towers'],
     phases:[
       {name:'WATCH + LEARN', minutes:4, text:'Eyes on me. Watch the cups stack up. Your job today: build the tallest cup tower you can. When it falls, that is okay. Builders always build again.', challenge:'A tower that falls is not a fail. Trying again is how we embrace the challenge.'},
@@ -734,7 +1214,7 @@ const DEFAULT_MISSIONS = [
     ]
   },
   {
-    id:'ballramps', type:'lesson', title:'BALL RAMPS', theme:'PUSH + ROLL', band:'K-2',
+    id:'ballramps', type:'lesson', title:'BALL RAMPS', theme:'PUSH + ROLL', band:'K-2', arc:3,
     loadout:['A ball or toy car for each pair','Books, boards, and blocks for ramps','A start line taped on the floor','Floor tiles or a tape measure to count distance'],
     phases:[
       {name:'WATCH + LEARN', minutes:4, text:'Watch the ball roll down the ramp. Today you build a ramp that makes your ball roll far. Taller ramps and smoother paths help.', challenge:'Making something roll farther takes tries. We learn by testing.'},
@@ -745,7 +1225,7 @@ const DEFAULT_MISSIONS = [
     ]
   },
   {
-    id:'glider', type:'lesson', title:'GLIDER LAB', theme:'FLIGHT', band:'3-4',
+    id:'glider', type:'lesson', title:'GLIDER LAB', theme:'FLIGHT', band:'3-4', arc:4,
     loadout:['1 sheet of paper per builder','2 paper clips max each','Launch line taped to the floor','Measuring tape at the wall','Recovery bin for gliders'],
     phases:[
       {name:'MISSION BRIEF', minutes:5, text:'Eyes up front. Watch the demo flight. Your mission: build a glider that flies far and flies straight. Materials: 1 sheet of paper and 2 paper clips, no more.', challenge:'Tight limits are the challenge. One sheet and two clips forces real problem solving.'},
@@ -755,7 +1235,7 @@ const DEFAULT_MISSIONS = [
     ]
   },
   {
-    id:'tower', type:'lesson', title:'TOWER CHALLENGE', theme:'STRUCTURES', band:'5-6',
+    id:'tower', type:'lesson', title:'TOWER CHALLENGE', theme:'STRUCTURES', band:'5-6', arc:2,
     loadout:['20 spaghetti sticks per team','1 meter of tape per team','1 marshmallow per team','Scissors at each table','Measuring stick ready'],
     phases:[
       {name:'MISSION BRIEF', minutes:5, text:'Your mission: build the tallest tower that holds a marshmallow on top for 10 seconds. Materials: 20 spaghetti sticks, 1 meter of tape, 1 marshmallow.', challenge:'Tall and steady fight each other. Living with that tension is the challenge.'},
@@ -765,7 +1245,7 @@ const DEFAULT_MISSIONS = [
     ]
   },
   {
-    id:'bridge', type:'lesson', title:'BRIDGE OUT', theme:'SPAN + LOAD', band:'5-6',
+    id:'bridge', type:'lesson', title:'BRIDGE OUT', theme:'SPAN + LOAD', band:'5-6', arc:5,
     loadout:['20 index cards per team','30 cm of tape per team','1 paper cup for the load','A handful of washers or coins','Two desks set one hand-span apart'],
     phases:[
       {name:'MISSION BRIEF', minutes:5, text:'Your mission: span the gap between two desks and hold the most weight in the middle. Materials: 20 index cards and 30 cm of tape. No taping to the desks.', challenge:'Holding weight with flimsy paper sounds impossible. Taking that on is the challenge.'},
@@ -775,7 +1255,7 @@ const DEFAULT_MISSIONS = [
     ]
   },
   {
-    id:'chain', type:'lesson', title:'CHAIN REACTION', theme:'CAUSE + EFFECT', band:'3-4',
+    id:'chain', type:'lesson', title:'CHAIN REACTION', theme:'CAUSE + EFFECT', band:'3-4', arc:6,
     loadout:['Books, blocks, and dominoes per team','1 marble or small ball each','Tape and string available','A start line and a finish cup','Clear floor or long table per team'],
     phases:[
       {name:'MISSION BRIEF', minutes:5, text:'Your mission: build a chain reaction that starts with one push and ends by dropping the marble in the cup. At least three steps, and no hands once it starts.', challenge:'One push, many steps, no hands. Long odds are exactly the challenge.'},
@@ -785,7 +1265,7 @@ const DEFAULT_MISSIONS = [
     ]
   },
   {
-    id:'pitchpolish', type:'lesson', title:'PITCH POLISH', theme:'TANK PREP', band:'5-6',
+    id:'pitchpolish', type:'lesson', title:'PITCH POLISH', theme:'TANK PREP', band:'5-6', arc:18,
     loadout:['Team prototypes on the table','A pitch card per team','A 60 second timer or phone','Feedback slips for listeners','Showcase zone cleared'],
     phases:[
       {name:'THE BRIEF', minutes:4, text:'Today we sharpen your CIRC Tank pitch. The goal: hook us in one sentence, show the thing, and say who it helps. Sixty seconds, no slides.', challenge:'Saying it simply is harder than saying it long. That is the challenge.'},
@@ -842,7 +1322,8 @@ function saveIdentity(){
 let identity = loadIdentity();
 
 /* ---------- persistence: missions (localStorage) ---------- */
-const STORE_KEY = 'missionControl.missions.v2';
+const STORE_KEY = 'missionControl.missions.v3';
+const OLD_STORE_KEY = 'missionControl.missions.v2';
 function defaultMissions(){ return JSON.parse(JSON.stringify(DEFAULT_MISSIONS)); }
 function isValidMission(m){
   return m && typeof m==='object'
@@ -853,7 +1334,22 @@ function isValidMission(m){
 function loadMissions(){
   try{
     const raw = localStorage.getItem(STORE_KEY);
-    if(!raw) return defaultMissions();
+    if(!raw){
+      const old = localStorage.getItem(OLD_STORE_KEY);
+      if(old){
+        try{
+          const prev = JSON.parse(old);
+          if(Array.isArray(prev)){
+            const defIds = new Set(DEFAULT_MISSIONS.map(m=>m.id));
+            const custom = prev.filter(m=>isValidMission(m) && !defIds.has(m.id));
+            const merged = defaultMissions().concat(custom);
+            localStorage.setItem(STORE_KEY, JSON.stringify(merged));
+            return merged;
+          }
+        }catch(e2){}
+      }
+      return defaultMissions();
+    }
     const data = JSON.parse(raw);
     if(Array.isArray(data) && data.length && data.every(isValidMission)) return data;
     return defaultMissions();
@@ -1033,7 +1529,7 @@ function resetMission(keepRun){
   R.run = run;
   render();
 }
-function nextCrew(){ const r = R.run; resetMission(true); R.run = Math.min(13, r+1); render(); }
+function nextCrew(){ const r = R.run; const mx = R.m.runs||13; resetMission(true); R.run = Math.min(mx, r+1); render(); }
 
 /* ---------- ring geometry ---------- */
 function ringSVG(){
@@ -1118,7 +1614,9 @@ function identityLine(){
 
 function renderHome(){
   const bands=['ALL','K-2','3-4','5-6'];
-  const lessons = missions.filter(m=>m.type==='lesson' && bandMatch(m));
+  const BAND_ORD = {'ALL':0,'K-2':1,'3-4':2,'5-6':3};
+  const lessons = missions.filter(m=>m.type==='lesson' && bandMatch(m))
+    .sort((a,b)=>((a.arc||99)-(b.arc||99)) || ((BAND_ORD[a.band||'ALL']??0)-(BAND_ORD[b.band||'ALL']??0)));
   const casts = missions.filter(m=>m.type==='broadcast' && bandMatch(m));
   const tanks = missions.filter(m=>m.type==='tank' && bandMatch(m));
   const themeHTML = esc(identity.seasonTheme).replace(/(CHALLENGE)/i, '<span class="hot">$1</span>');
@@ -1188,7 +1686,7 @@ function cardHTML(m){
   <div class="card ${cls}" tabindex="0" role="button"
        onclick="startMission('${m.id}')" onkeydown="if(event.key==='Enter')startMission('${m.id}')">
     <button class="edit-link" onclick="event.stopPropagation();openEditor('${m.id}')">EDIT</button>
-    <div class="chip-row"><span class="theme">${esc(m.theme)}</span><span class="band-chip">${esc(m.band||'ALL')}</span></div>
+    <div class="chip-row">${m.arc?`<span class="theme" style="color:var(--text-dim);border-color:rgba(127,163,176,.35)">M${String(m.arc).padStart(2,'0')}</span>`:''}<span class="theme">${esc(m.theme)}</span><span class="band-chip">${esc(m.band||'ALL')}</span></div>
     <h3>${esc(m.title)}</h3>
     <div class="meta"><span><b>${m.phases.length}</b> ${m.type==='tank'?'phases / team':'phases'}</span><span><b>${fmtMin(total)}</b> min${m.type==='tank'?' / team':''}</span></div>
     ${footer}
@@ -1207,12 +1705,12 @@ function renderRunner(){
       ? 'Great show. Reset the desk and the gear for tomorrow\'s crew.'
       : (isTank ? 'Every team put their work on the line. That is the whole idea.' : 'You took on something hard and made it better. That is the challenge.');
     app.innerHTML = `
-    <div class="runner ${modeCls}">
+    <div class="runner ${modeCls} ${R.m.band==='K-2'?'littles':''}">
       ${hudHTML()}
       <div class="complete">
         <div class="eyebrow">${isCast?'BROADCAST ENDED':(isTank?'TANK COMPLETE':'ALL PHASES CLEAR')}</div>
         <div class="big">${isCast?'OFF AIR':(isTank?'TANK CLEAR':'MISSION COMPLETE')}</div>
-        ${isCast||isTank?'':`<div class="crew">Crew <b>${R.run} of 13</b> cleared the mission.</div>`}
+        ${isCast||isTank?'':`<div class="crew">Crew <b>${R.run} of ${R.m.runs||13}</b> cleared the mission.</div>`}
         <div class="creed">${creed}</div>
         <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:10px">
           ${isCast
@@ -1292,7 +1790,7 @@ function renderRunner(){
   }
 
   app.innerHTML = `
-  <div class="runner ${modeCls} ${R.running?'running':''}">
+  <div class="runner ${modeCls} ${R.m.band==='K-2'?'littles':''} ${R.running?'running':''}">
     ${hudHTML()}
     ${body}
     <div class="deck" id="deck"></div>
@@ -1309,7 +1807,7 @@ function hudHTML(){
   } else if(isTank){
     statusPill = `<span class="pill tankpill">TEAM ${R.teamIdx+1} / ${R.teams.length}</span>`;
   } else {
-    statusPill = `<span class="pill run" title="Tap to set which class period this is" onclick="bumpRun()">RUN ${R.run} / 13</span>`;
+    statusPill = `<span class="pill run" title="Tap to set which class period this is" onclick="bumpRun()">RUN ${R.run} / ${R.m.runs||13}</span>`;
   }
   return `
   <div class="hud">
@@ -1336,7 +1834,7 @@ function renderRunnerControls(){
     <button class="btn danger" onclick="resetMission(true)">RESET</button>`;
 }
 
-function bumpRun(){ if(!R) return; R.run = R.run >= 13 ? 1 : R.run+1; render(); }
+function bumpRun(){ if(!R) return; const mx = R.m.runs||13; R.run = R.run >= mx ? 1 : R.run+1; render(); }
 function toggleSound(){ soundOn = !soundOn; const b=document.getElementById('sndBtn'); if(b) b.textContent = soundOn?'SOUND ON':'SOUND OFF'; }
 function exitRunner(){ cancelAnimationFrame(tickHandle); R=null; screen='home'; render(); }
 
